@@ -50,6 +50,10 @@ module.exports = defineConfig({
   },
   plugins: [
     {
+      resolve: "@mercurjs/framework",
+      options: {},
+    },
+    {
       resolve: "@mercurjs/b2c-core",
       options: {},
     },
