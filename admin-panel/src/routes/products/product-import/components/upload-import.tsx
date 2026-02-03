@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { FileType, FileUpload } from "../../../../components/common/file-upload"
+import type { FileType} from "../../../../components/common/file-upload";
+import { FileUpload } from "../../../../components/common/file-upload"
 import { Hint } from "@medusajs/ui"
 import { useTranslation } from "react-i18next"
 

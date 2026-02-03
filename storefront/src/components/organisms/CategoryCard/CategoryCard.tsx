@@ -1,6 +1,7 @@
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 import Image from "next/image"
 
+export default {}
 export function CategoryCard({
   category,
 }: {

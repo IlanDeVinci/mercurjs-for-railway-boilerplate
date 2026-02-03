@@ -1,5 +1,6 @@
 import Image from "next/image"
 
+export default {}
 export const SellerAvatar = ({
   photo = "",
   size = 32,

@@ -4,6 +4,7 @@ import tailwindConfig from "../../../../tailwind.config"
 import { ArrowRightIcon } from "@/icons"
 import Link from "next/link"
 
+export default {}
 type HeroProps = {
   image: string
   heading: string

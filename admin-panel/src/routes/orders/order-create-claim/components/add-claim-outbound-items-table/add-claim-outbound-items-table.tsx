@@ -1,4 +1,4 @@
-import { OnChangeFn, RowSelectionState } from "@tanstack/react-table"
+import type { OnChangeFn, RowSelectionState } from "@tanstack/react-table"
 import { useState } from "react"
 
 import { useTranslation } from "react-i18next"
@@ -28,7 +28,8 @@ export const AddClaimOutboundItemsTable = ({
   const [rowSelection, setRowSelection] = useState<RowSelectionState>(
     selectedItems.reduce((acc, id) => {
       acc[id] = true
-      return acc
+      
+return acc
     }, {} as RowSelectionState)
   )
 

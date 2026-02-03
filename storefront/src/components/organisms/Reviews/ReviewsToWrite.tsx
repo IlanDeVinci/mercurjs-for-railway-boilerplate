@@ -1,3 +1,4 @@
+export default {}
 "use client"
 import { Card, NavigationItem } from "@/components/atoms"
 import { Modal, ReviewForm } from "@/components/molecules"

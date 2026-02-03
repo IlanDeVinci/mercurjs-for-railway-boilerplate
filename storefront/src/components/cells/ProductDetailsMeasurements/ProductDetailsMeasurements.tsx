@@ -4,6 +4,7 @@ import {
 } from '@/components/molecules';
 import { SingleProductMeasurement } from '@/types/product';
 
+export default {}
 export const ProductDetailsMeasurements = ({
   measurements,
 }: {

@@ -1,6 +1,7 @@
 import { Label } from '@/components/atoms';
 import { HttpTypes } from '@medusajs/types';
 
+export default {}
 export const ProductTags = ({
   tags,
 }: {

@@ -1,5 +1,6 @@
 import { Card, Checkbox } from "@/components/atoms"
 
+export default {}
 export const ReturnMethodsTab = ({
   shippingMethods,
   handleSetReturnMethod,

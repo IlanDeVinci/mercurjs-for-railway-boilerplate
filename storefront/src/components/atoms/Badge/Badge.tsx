@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 
+export default {}
 interface BadgeProps {
   children: React.ReactNode;
   className?: string;

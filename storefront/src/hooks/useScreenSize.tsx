@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+export default {}
 export const useScreenSize = () => {
   const [screenSize, setScreenSize] = useState<
     'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | ''

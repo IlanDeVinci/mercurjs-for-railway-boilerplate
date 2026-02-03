@@ -6,6 +6,7 @@ import { DeleteCartItemButton } from "@/components/molecules"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 import { UpdateCartItemButton } from "@/components/molecules/UpdateCartItemButton/UpdateCartItemButton"
 
+export default {}
 export const CartItemsProducts = ({
   products,
   currency_code,

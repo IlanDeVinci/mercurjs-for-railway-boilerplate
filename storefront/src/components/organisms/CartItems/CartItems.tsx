@@ -6,6 +6,7 @@ import {
 import { HttpTypes } from "@medusajs/types"
 import { EmptyCart } from "./EmptyCart"
 
+export default {}
 export const CartItems = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
   if (!cart) return null
 

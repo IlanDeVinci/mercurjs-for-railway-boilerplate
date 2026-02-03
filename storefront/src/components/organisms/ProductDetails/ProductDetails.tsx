@@ -14,6 +14,7 @@ import { SellerProps } from "@/types/seller"
 import { Wishlist } from "@/types/wishlist"
 import { HttpTypes } from "@medusajs/types"
 
+export default {}
 export const ProductDetails = async ({
   product,
   locale,

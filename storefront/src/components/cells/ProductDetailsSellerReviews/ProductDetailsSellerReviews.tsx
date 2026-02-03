@@ -2,6 +2,7 @@ import { Button } from '@/components/atoms';
 import { SellerReview } from '@/components/molecules';
 import { SingleProductReview } from '@/types/product';
 
+export default {}
 export const ProductDetailsSellerReviews = ({
   reviews,
 }: {

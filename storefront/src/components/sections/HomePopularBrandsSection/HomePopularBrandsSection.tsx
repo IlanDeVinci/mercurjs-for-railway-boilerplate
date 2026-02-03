@@ -2,6 +2,7 @@ import { Brand } from '@/types/brands';
 import { BrandCard } from '@/components/organisms';
 import { Carousel } from '@/components/cells';
 
+export default {}
 const brands: Brand[] = [
   {
     id: 1,

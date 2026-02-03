@@ -1,3 +1,4 @@
+export default {}
 "use server"
 import { revalidatePath } from "next/cache"
 import { fetchQuery } from "../config"

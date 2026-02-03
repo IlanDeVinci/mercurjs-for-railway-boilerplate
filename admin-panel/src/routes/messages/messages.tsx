@@ -35,7 +35,8 @@ function toWsUrl(httpUrl: string) {
   u.pathname = "/ws";
   u.search = "";
   u.hash = "";
-  return u.toString();
+  
+return u.toString();
 }
 
 export const Messages = () => {
@@ -79,7 +80,8 @@ export const Messages = () => {
 
     loadRooms();
     const id = window.setInterval(loadRooms, 15000);
-    return () => {
+    
+return () => {
       cancelled = true;
       window.clearInterval(id);
     };
@@ -197,7 +199,8 @@ export const Messages = () => {
                   const active = r.roomId === activeRoomId;
                   const label = r.subject || r.key;
                   const unread = r.unread_count || 0;
-                  return (
+                  
+return (
                     <button
                       key={r.roomId}
                       className={`w-full border-b px-3 py-2 text-left hover:bg-ui-bg-base ${active ? "bg-ui-bg-base" : ""}`}
@@ -228,7 +231,8 @@ export const Messages = () => {
                 {activeRoomId ? (
                   messages.map((m) => {
                     const mine = m.userId === adminUserId;
-                    return (
+                    
+return (
                       <div
                         key={m.id}
                         className={`mb-2 flex ${mine ? "justify-end" : "justify-start"}`}

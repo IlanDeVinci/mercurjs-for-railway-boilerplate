@@ -12,6 +12,7 @@ import { ChevronUpDown } from "@medusajs/icons"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
+export default {}
 export const ReturnItemsTab = ({
   order,
   selectedItems,

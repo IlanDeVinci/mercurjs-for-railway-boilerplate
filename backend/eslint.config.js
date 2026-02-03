@@ -1,8 +1,11 @@
 const { FlatCompat } = require("@eslint/eslintrc");
+const js = require("@eslint/js");
 const tsParser = require("@typescript-eslint/parser");
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
 });
 
 const srcFiles = ["src/**/*.{js,jsx,ts,tsx}"];

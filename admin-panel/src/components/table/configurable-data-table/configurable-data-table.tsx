@@ -7,7 +7,7 @@ import { SaveViewDropdown } from "./save-view-dropdown"
 import { useTableConfiguration } from "../../../hooks/table/use-table-configuration"
 import { useConfigurableTableColumns } from "../../../hooks/table/columns/use-configurable-table-columns"
 import { getEntityAdapter } from "../../../lib/table/entity-adapters"
-import { TableAdapter } from "../../../lib/table/table-adapters"
+import type { TableAdapter } from "../../../lib/table/table-adapters"
 
 type DataTableActionProps = {
   label: string

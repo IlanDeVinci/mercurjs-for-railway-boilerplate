@@ -1,3 +1,4 @@
+export default {}
 "use client"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"

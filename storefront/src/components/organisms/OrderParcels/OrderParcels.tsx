@@ -5,6 +5,7 @@ import { OrderParcelItems } from "@/components/molecules/OrderParcelItems/OrderP
 import { OrderParcelStatus } from "@/components/molecules/OrderParcelStatus/OrderParcelStatus"
 import { OrderParcelActions } from "@/components/molecules/OrderParcelActions/OrderParcelActions"
 
+export default {}
 export const OrderParcels = async ({ orders }: { orders: any[] }) => {
   const user = await retrieveCustomer()
 

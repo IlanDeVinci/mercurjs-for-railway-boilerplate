@@ -1,5 +1,6 @@
 import { listRegions } from "../data/regions"
 
+export default {}
 export const checkRegion = async (locale: string) => {
   const regions = await listRegions()
   if (!regions || regions.length === 0) {

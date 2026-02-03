@@ -1,3 +1,4 @@
+export default {}
 "use client"
 
 import { OrdersPagination } from "@/components/sections"

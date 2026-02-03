@@ -375,7 +375,7 @@ export const RouteMap: RouteObject[] = [
                         loader,
                         handle: {
                           breadcrumb: (
-                            // eslint-disable-next-line max-len
+                             
                             match: UIMatch<HttpTypes.AdminProductVariantResponse>
                           ) => <Breadcrumb {...match} />,
                         },
@@ -1281,7 +1281,7 @@ export const RouteMap: RouteObject[] = [
                         loader,
                         handle: {
                           breadcrumb: (
-                            // eslint-disable-next-line max-len
+                             
                             match: UIMatch<HttpTypes.AdminShippingProfileResponse>
                           ) => <Breadcrumb {...match} />,
                         },

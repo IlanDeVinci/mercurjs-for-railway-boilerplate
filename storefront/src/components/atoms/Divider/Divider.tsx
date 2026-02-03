@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils"
 
+export default {}
 interface DividerProps {
   orientation?: "horizontal" | "vertical"
   square?: boolean

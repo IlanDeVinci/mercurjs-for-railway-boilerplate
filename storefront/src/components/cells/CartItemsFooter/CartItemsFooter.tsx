@@ -1,5 +1,6 @@
 import { convertToLocale } from '@/lib/helpers/money';
 
+export default {}
 export const CartItemsFooter = ({
   currency_code,
   price,

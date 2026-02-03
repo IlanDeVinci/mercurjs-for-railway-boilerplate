@@ -6,6 +6,7 @@ import { Product, SortOptions } from '@/types/product';
  * @param sortBy
  * @returns products sorted by price
  */
+export default {}
 export function sortProducts(
   products: Product[],
   sortBy: SortOptions

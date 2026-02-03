@@ -1,6 +1,7 @@
 import Medusa from "@medusajs/js-sdk"
 
 // Defaults to standard port for Medusa server
+export default {}
 const MEDUSA_BACKEND_URL =
   process.env.MEDUSA_BACKEND_URL || "http://localhost:9000"
 

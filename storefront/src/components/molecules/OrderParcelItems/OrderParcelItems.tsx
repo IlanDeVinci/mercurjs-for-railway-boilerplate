@@ -1,5 +1,6 @@
 import { OrderProductListItem } from "@/components/cells"
 
+export default {}
 export const OrderParcelItems = ({
   items,
   currency_code,

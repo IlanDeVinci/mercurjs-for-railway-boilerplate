@@ -1,3 +1,4 @@
+export default {}
 "use client"
 import { Chip } from "@/components/atoms"
 import useFilters from "@/hooks/useFilters"

@@ -1,3 +1,4 @@
+export default {}
 "use server"
 import { Wishlist } from "@/types/wishlist"
 import { sdk } from "../config"

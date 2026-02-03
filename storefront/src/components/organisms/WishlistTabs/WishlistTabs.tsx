@@ -4,6 +4,7 @@ import { Suspense } from "react"
 import { ProductsPagination } from "../ProductsPagination/ProductsPagination"
 // import { listProducts } from "@/lib/data/products"
 
+export default {}
 export const wishlistTabs = [
   { label: "All", link: "/wishlist" },
   { label: "Products", link: "/wishlist/products" },

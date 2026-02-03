@@ -1,6 +1,7 @@
 import { BlogPost } from '@/types/blog';
 import { BlogCard } from '@/components/organisms';
 
+export default {}
 export const blogPosts: BlogPost[] = [
   {
     id: 1,

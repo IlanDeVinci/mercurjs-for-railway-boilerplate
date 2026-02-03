@@ -1,3 +1,4 @@
+export default {}
 export const ProductListingSkeleton = () => {
   return (
     <div className='py-4'>

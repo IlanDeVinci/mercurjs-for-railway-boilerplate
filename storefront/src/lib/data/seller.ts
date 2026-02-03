@@ -1,6 +1,7 @@
 import { SellerProps } from "@/types/seller"
 import { sdk } from "../config"
 
+export default {}
 export const getSellerByHandle = async (handle: string) => {
   return sdk.client
     .fetch<{ seller: SellerProps }>(`/store/seller/${handle}`, {

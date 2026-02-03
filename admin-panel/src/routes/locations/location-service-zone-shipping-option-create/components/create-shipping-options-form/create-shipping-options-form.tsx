@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, ProgressStatus, ProgressTabs, toast } from "@medusajs/ui"
+import type { HttpTypes } from "@medusajs/types"
+import type { ProgressStatus} from "@medusajs/ui";
+import { Button, ProgressTabs, toast } from "@medusajs/ui"
 import { useForm, useWatch } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 
@@ -12,8 +13,9 @@ import {
 import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
 import { useCreateShippingOptions } from "../../../../../hooks/api/shipping-options"
 import { castNumber } from "../../../../../lib/cast-number"
+import type {
+  FulfillmentSetType} from "../../../common/constants";
 import {
-  FulfillmentSetType,
   ShippingOptionPriceType,
 } from "../../../common/constants"
 import { buildShippingOptionPriceRules } from "../../../common/utils/price-rule-helpers"
@@ -156,13 +158,13 @@ export function CreateShippingOptionsForm({
         data: fulfillmentOptionData as unknown as Record<string, unknown>,
         rules: [
           {
-            // eslint-disable-next-line
+             
             value: isReturn ? "true" : "false",
             attribute: "is_return",
             operator: "eq",
           },
           {
-            // eslint-disable-next-line
+             
             value: data.enabled_in_store ? "true" : "false",
             attribute: "enabled_in_store",
             operator: "eq",
@@ -222,7 +224,8 @@ export function CreateShippingOptionsForm({
         )
 
         setValidDetails(false)
-        return
+        
+return
       }
 
       setValidDetails(true)
@@ -265,7 +268,8 @@ export function CreateShippingOptionsForm({
           if (shouldContinueToPricing) {
             e.stopPropagation()
             onTabChange(Tab.PRICING)
-            return
+            
+return
           }
 
           handleSubmit()

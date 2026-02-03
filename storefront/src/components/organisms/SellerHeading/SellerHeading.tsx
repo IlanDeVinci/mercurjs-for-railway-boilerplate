@@ -3,6 +3,7 @@ import { SellerProps } from "@/types/seller"
 import { Chat } from "../Chat/Chat"
 import { HttpTypes } from "@medusajs/types"
 
+export default {}
 export const SellerHeading = ({
   seller,
   user,

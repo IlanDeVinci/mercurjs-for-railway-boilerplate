@@ -1,5 +1,6 @@
 import { SellerProps } from "./seller"
 
+export default {}
 export interface AdditionalAttributeProps {
   id: string
   attribute_id: string

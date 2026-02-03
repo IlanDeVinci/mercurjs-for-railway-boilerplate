@@ -1,3 +1,4 @@
+export default {}
 export const orderErrorFormatter = (error: any) => {
   if (error.message === "NEXT_REDIRECT") {
     return null

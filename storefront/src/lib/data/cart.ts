@@ -1,3 +1,4 @@
+export default {}
 "use server"
 
 import { fetchQuery, sdk } from "../config"
@@ -483,7 +484,7 @@ export async function updateRegionWithValidation(
     throw new Error(`Region not found for country code: ${countryCode}`)
   }
 
-  let removedItems: string[] = []
+  const removedItems: string[] = []
 
   if (cartId) {
     const headers = {

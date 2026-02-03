@@ -136,7 +136,7 @@ function initRecord(
       (item: { attribute: string }) => item.attribute === "region_id"
     )
 
-    if (!!regionPrice) {
+    if (regionPrice) {
       const regionId = regionPrice.value
 
       variantObject.region_prices = {

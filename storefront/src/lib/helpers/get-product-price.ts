@@ -3,6 +3,7 @@ import { getPercentageDiff } from "./get-precentage-diff"
 import { convertToLocale } from "./money"
 import { BaseHit, Hit } from "instantsearch.js"
 
+export default {}
 export const getPricesForVariant = (variant: any) => {
   if (
     !variant?.calculated_price?.calculated_amount_with_tax &&

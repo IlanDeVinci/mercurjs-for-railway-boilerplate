@@ -1,6 +1,7 @@
 import { ProductPageAccordion } from "@/components/molecules"
 import { AdditionalAttributeProps } from "@/types/product"
 
+export default {}
 export const ProductAdditionalAttributes = ({
   attributes,
 }: {

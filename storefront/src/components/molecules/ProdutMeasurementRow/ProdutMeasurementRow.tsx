@@ -1,5 +1,6 @@
 import { SingleProductMeasurement } from '@/types/product';
 
+export default {}
 export const ProdutMeasurementRow = ({
   measurement,
 }: {

@@ -1,3 +1,4 @@
+export default {}
 "use client"
 
 import { Accordion, FilterCheckboxOption } from "@/components/molecules"

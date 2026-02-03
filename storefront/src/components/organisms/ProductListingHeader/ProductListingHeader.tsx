@@ -1,3 +1,4 @@
+export default {}
 "use client"
 import { SelectField } from "@/components/molecules"
 import { usePathname } from "next/navigation"

@@ -5,6 +5,7 @@ import Image from "next/image"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 import { Fragment } from "react"
 
+export default {}
 export const OrderProductListItem = ({
   item,
   currency_code,

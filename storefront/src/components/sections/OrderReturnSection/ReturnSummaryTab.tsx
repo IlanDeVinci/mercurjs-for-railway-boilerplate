@@ -2,6 +2,7 @@ import { Button, Card } from "@/components/atoms"
 import { convertToLocale } from "@/lib/helpers/money"
 import Image from "next/image"
 
+export default {}
 export const ReturnSummaryTab = ({
   selectedItems,
   items,

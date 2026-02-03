@@ -1,6 +1,7 @@
 import { useSearchParams } from 'next/navigation';
 import useUpdateSearchParams from './useUpdateSearchParams';
 
+export default {}
 export const usePagination = () => {
   const searchParams = useSearchParams();
   const updateSearchParams = useUpdateSearchParams();

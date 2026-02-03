@@ -1,3 +1,4 @@
+export default {}
 export const primeCategories = {
   menswear: 'Menswear',
   womenswear: 'Womenswear',

@@ -1,6 +1,7 @@
 import { HttpTypes } from '@medusajs/types';
 import { SortOptions } from '@/types/product';
 
+export default {}
 interface MinPricedProduct extends HttpTypes.StoreProduct {
   _minPrice?: number;
 }

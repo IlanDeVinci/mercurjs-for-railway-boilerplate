@@ -1,3 +1,4 @@
+export default {}
 export const singleProduct = {
   id: '1',
   brand: 'Nike',

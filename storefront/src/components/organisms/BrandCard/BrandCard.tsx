@@ -2,6 +2,7 @@ import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedL
 import Image from "next/image"
 import { Brand } from "@/types/brands"
 
+export default {}
 interface BrandCardProps {
   brand: Brand
 }

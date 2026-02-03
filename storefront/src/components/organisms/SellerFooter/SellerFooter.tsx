@@ -1,3 +1,4 @@
+export default {}
 "use client"
 import { Button, Divider } from "@/components/atoms"
 import { Modal, ReportSellerForm } from "@/components/molecules"

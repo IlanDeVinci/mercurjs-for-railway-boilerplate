@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 
+export default {}
 interface ChipProps {
   value?: React.ReactNode | string;
   selected?: boolean;

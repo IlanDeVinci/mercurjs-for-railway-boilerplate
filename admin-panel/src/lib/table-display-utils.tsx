@@ -342,7 +342,8 @@ export const ENTITY_COLUMN_OVERRIDES = {
         if (customer?.first_name || customer?.last_name) {
           return `${customer.first_name || ''} ${customer.last_name || ''}`.trim()
         }
-        return customer?.email || 'Guest'
+        
+return customer?.email || 'Guest'
       }
     }
   }

@@ -1,3 +1,4 @@
+export default {}
 "use server"
 
 import { SellerProps } from "@/types/seller"

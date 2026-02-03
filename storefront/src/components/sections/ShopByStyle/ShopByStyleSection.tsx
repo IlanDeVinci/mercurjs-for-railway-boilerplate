@@ -3,6 +3,7 @@ import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedL
 import { ArrowRightIcon } from "@/icons"
 import { Style } from "@/types/styles"
 
+export default {}
 export const styles: Style[] = [
   {
     id: 1,

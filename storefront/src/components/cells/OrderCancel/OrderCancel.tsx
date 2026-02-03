@@ -1,3 +1,4 @@
+export default {}
 "use client"
 
 import { Button, Checkbox, Divider } from "@/components/atoms"

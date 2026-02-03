@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 
+export default {}
 export const ProductPostedDate = async ({
   posted,
 }: {

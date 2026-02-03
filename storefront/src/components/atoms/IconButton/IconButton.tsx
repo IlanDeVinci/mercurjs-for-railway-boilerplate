@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 
 import { LoaderIcon } from '@/icons';
 
+export default {}
 interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: React.ReactNode;

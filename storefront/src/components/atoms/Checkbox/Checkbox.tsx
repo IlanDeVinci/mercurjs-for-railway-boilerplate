@@ -1,3 +1,4 @@
+export default {}
 "use client"
 import { cn } from "@/lib/utils"
 import { MinusHeavyIcon, TickThinIcon } from "@/icons"

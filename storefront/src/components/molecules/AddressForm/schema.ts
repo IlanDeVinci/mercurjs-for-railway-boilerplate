@@ -1,5 +1,6 @@
 import { z } from "zod"
 
+export default {}
 export const addressSchema = z.object({
   addressId: z.string().optional(),
   addressName: z.string().nonempty("Address name is required"),

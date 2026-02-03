@@ -1,6 +1,7 @@
 import { Checkbox } from '@/components/atoms';
 import { cn } from '@/lib/utils';
 
+export default {}
 export const FilterCheckboxOption = ({
   label,
   amount,

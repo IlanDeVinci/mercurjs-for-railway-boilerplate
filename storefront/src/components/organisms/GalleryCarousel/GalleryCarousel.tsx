@@ -1,6 +1,7 @@
 import { ProductCarousel } from '@/components/cells';
 import { HttpTypes } from '@medusajs/types';
 
+export default {}
 export const GalleryCarousel = ({
   images,
 }: {

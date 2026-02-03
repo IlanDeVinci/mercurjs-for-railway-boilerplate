@@ -1,3 +1,4 @@
+export default {}
 "use client"
 import { Input } from "@/components/atoms"
 import { cn } from "@/lib/utils"

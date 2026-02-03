@@ -1,5 +1,6 @@
 import { Product } from "./product"
 
+export default {}
 type SellerAddress = {
   address_line?: string
   city?: string

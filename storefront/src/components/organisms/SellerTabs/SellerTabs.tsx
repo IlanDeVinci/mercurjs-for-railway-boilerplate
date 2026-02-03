@@ -5,6 +5,7 @@ import { TabsContent, TabsList } from "@/components/molecules"
 import { SellerReviewTab } from "@/components/cells"
 import { getRegion } from "@/lib/data/regions"
 
+export default {}
 const MEILI_HOST = process.env.NEXT_PUBLIC_MEILI_HOST
 
 export const SellerTabs = ({

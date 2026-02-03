@@ -4,6 +4,7 @@ import { format } from "date-fns"
 import { convertToLocale } from "@/lib/helpers/money"
 import { ParcelAccordionItems } from "./ParcelAccordionItems"
 
+export default {}
 export const ParcelAccordion = ({
   orderId,
   orderDisplayId,

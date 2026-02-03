@@ -1,3 +1,4 @@
+export default {}
 'use client';
 
 import { HttpTypes } from '@medusajs/types';

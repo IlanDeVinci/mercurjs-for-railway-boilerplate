@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo } from "react";
 
 import { formatDate } from "../../../lib/date";
-import { VendorSeller } from "../../../types";
+import type { VendorSeller } from "../../../types";
 import { SellerStatusBadge } from "../../../components/common/seller-status-badge";
 
 const columnHelper = createColumnHelper<VendorSeller>();

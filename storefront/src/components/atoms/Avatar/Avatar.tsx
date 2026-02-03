@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { ProfileIcon } from "@/icons"
 
+export default {}
 interface AvatarProps {
   src?: string
   alt?: string

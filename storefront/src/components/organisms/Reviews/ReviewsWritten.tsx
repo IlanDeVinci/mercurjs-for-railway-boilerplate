@@ -1,3 +1,4 @@
+export default {}
 "use client"
 import { navigation } from "./navigation"
 import { Card, NavigationItem } from "@/components/atoms"

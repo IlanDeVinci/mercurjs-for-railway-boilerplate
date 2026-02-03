@@ -1,3 +1,4 @@
+export default {}
 export const steps = ["Received", "Preparing", "Shipped", "Delivered"]
 
 export const parcelStatuses = (

@@ -1,3 +1,4 @@
+export default {}
 "use server"
 
 import { sdk } from "@/lib/config"

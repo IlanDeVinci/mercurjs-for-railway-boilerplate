@@ -1,5 +1,6 @@
 import { StarRating } from "@/components/atoms"
 
+export default {}
 export const SellerScore = ({
   rate,
   reviewCount,

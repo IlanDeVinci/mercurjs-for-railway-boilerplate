@@ -1,5 +1,6 @@
 import { Card } from "@/components/atoms"
 
+export default {}
 export const OrderTrack = ({ order }: { order: any }) => {
   if (!order.fulfillments[0]?.labels?.length) return null
 

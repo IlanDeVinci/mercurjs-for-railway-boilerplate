@@ -1,4 +1,4 @@
-import { MutableRefObject, Ref, RefCallback } from "react"
+import type { MutableRefObject, Ref, RefCallback } from "react"
 
 // Utility function to set multiple refs
 function setRef<T>(ref: Ref<T> | undefined, value: T) {

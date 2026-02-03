@@ -5,6 +5,7 @@ import {
 } from '@/components/molecules';
 import { HttpTypes } from '@medusajs/types';
 
+export default {}
 export const ProductDetailsFooter = ({
   tags = [],
   posted,

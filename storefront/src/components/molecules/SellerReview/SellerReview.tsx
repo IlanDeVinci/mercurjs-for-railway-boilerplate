@@ -3,6 +3,7 @@ import { SingleProductReview } from "@/types/product"
 import { Divider } from "@medusajs/ui"
 import { formatDistanceToNow } from "date-fns"
 
+export default {}
 export const SellerReview = ({ review }: { review: SingleProductReview }) => {
   return (
     <div className="mb-4 border-b pb-4 flex gap-4">

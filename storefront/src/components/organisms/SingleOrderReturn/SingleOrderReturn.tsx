@@ -1,3 +1,4 @@
+export default {}
 "use client"
 
 import { Avatar, Badge, Card, Divider } from "@/components/atoms"

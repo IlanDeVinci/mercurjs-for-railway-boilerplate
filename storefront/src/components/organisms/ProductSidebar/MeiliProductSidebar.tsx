@@ -1,3 +1,4 @@
+export default {}
 "use client"
 
 import { Button, Chip, Input } from "@/components/atoms"

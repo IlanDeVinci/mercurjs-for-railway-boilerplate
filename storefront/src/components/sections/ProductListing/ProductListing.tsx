@@ -8,6 +8,7 @@ import {
 import { PRODUCT_LIMIT } from "@/const"
 import { listProductsWithSort } from "@/lib/data/products"
 
+export default {}
 export const ProductListing = async ({
   category_id,
   collection_id,

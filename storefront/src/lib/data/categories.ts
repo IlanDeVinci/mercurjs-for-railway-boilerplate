@@ -1,6 +1,7 @@
 import { sdk } from "@/lib/config"
 import { HttpTypes } from "@medusajs/types"
 
+export default {}
 interface CategoriesProps {
   query?: Record<string, any>
   headingCategories?: string[]

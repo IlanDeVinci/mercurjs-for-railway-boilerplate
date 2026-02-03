@@ -1,3 +1,4 @@
+export default {}
 "use client"
 
 import { Button, Card } from "@/components/atoms"

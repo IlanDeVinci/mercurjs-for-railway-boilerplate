@@ -1,3 +1,4 @@
+export default {}
 "use client"
 
 import { useChatContext } from "@/components/providers/Chat/ChatProvider"

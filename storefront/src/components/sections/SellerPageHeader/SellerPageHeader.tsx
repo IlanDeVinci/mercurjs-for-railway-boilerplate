@@ -1,6 +1,7 @@
 import { SellerFooter, SellerHeading } from "@/components/organisms"
 import { HttpTypes } from "@medusajs/types"
 
+export default {}
 export const SellerPageHeader = ({
   header = false,
   seller,

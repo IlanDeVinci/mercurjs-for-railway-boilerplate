@@ -16,6 +16,7 @@ import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedL
 import { MessageButton } from "@/components/molecules/MessageButton/MessageButton"
 import { SellNowButton } from "@/components/cells/SellNowButton/SellNowButton"
 
+export default {}
 export const Header = async () => {
   const user = await retrieveCustomer()
   let wishlist: Wishlist[] = []

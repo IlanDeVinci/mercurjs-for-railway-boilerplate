@@ -1,5 +1,6 @@
 import { z } from "zod"
 
+export default {}
 export const registerFormSchema = z.object({
   firstName: z.string().nonempty("Please enter first name"),
   lastName: z.string().nonempty("Please enter last name"),

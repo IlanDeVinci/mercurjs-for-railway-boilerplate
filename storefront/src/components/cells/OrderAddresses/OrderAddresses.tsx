@@ -2,6 +2,7 @@ import { Card } from "@/components/atoms"
 import { retrieveCustomer } from "@/lib/data/customer"
 import { getRegion } from "@/lib/data/regions"
 
+export default {}
 export const OrderAddresses = async ({ singleOrder }: { singleOrder: any }) => {
   const user = await retrieveCustomer()
   const region = await getRegion(singleOrder.shipping_address.country_code)

@@ -1,6 +1,7 @@
 import 'server-only';
 import { cookies as nextCookies } from 'next/headers';
 
+export default {}
 export const getAuthHeaders = async (): Promise<
   { authorization: string } | {}
 > => {

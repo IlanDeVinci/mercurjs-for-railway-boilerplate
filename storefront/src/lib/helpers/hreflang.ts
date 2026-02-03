@@ -1,3 +1,4 @@
+export default {}
 export const toHreflang = (code: string): string => {
   const map: Record<string, string> = {
     us: "en-US",

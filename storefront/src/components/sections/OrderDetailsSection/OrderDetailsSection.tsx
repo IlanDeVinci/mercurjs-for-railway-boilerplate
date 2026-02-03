@@ -2,6 +2,7 @@ import { OrderAddresses } from "@/components/organisms/OrderAddresses/OrderAddre
 import { OrderParcels } from "@/components/organisms/OrderParcels/OrderParcels"
 import { OrderTotals } from "@/components/organisms/OrderTotals/OrderTotals"
 
+export default {}
 export const OrderDetailsSection = ({ orderSet }: { orderSet: any }) => {
   return (
     <div>

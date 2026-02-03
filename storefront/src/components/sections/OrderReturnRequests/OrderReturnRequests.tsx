@@ -3,6 +3,7 @@ import { SingleOrderReturn } from "@/components/organisms/SingleOrderReturn/Sing
 import { Heading } from "@medusajs/ui"
 import { isEmpty } from "lodash"
 
+export default {}
 const LIMIT = 10
 
 export const OrderReturnRequests = ({
