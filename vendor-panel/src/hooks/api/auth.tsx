@@ -16,6 +16,9 @@ export const useSignInWithEmailPass = (
   return useMutation({
     mutationFn: (payload) => sdk.auth.login("seller", "emailpass", payload),
     onSuccess: async (data, variables, context) => {
+      if (typeof data === "string" && data.length > 0) {
+        window.localStorage.setItem("medusa_auth_token", data)
+      }
       options?.onSuccess?.(data, variables, context)
     },
     ...options,

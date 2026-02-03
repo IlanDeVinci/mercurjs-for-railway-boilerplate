@@ -28,6 +28,7 @@ type CountrySelectProps = {
 }
 
 const CountrySelect = ({ regions }: CountrySelectProps) => {
+  const [mounted, setMounted] = useState(false)
   const [current, setCurrent] = useState<
     | { country: string | undefined; region: string; label: string | undefined }
     | undefined
@@ -36,6 +37,11 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
   const { locale: countryCode } = useParams()
   const router = useRouter()
   const currentPath = usePathname().split(`/${countryCode}`)[1]
+
+  const collator = useMemo(
+    () => new Intl.Collator("en", { sensitivity: "base" }),
+    []
+  )
 
   const options = useMemo(() => {
     return regions
@@ -47,8 +53,12 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
         }))
       })
       .flat()
-      .sort((a, b) => (a?.label ?? "").localeCompare(b?.label ?? ""))
-  }, [regions])
+      .sort((a, b) => collator.compare(a?.label ?? "", b?.label ?? ""))
+  }, [regions, collator])
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (countryCode) {
@@ -59,8 +69,11 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
 
   const handleChange = async (option: CountryOption) => {
     try {
-      const result = await updateRegionWithValidation(option.country, currentPath)
-      
+      const result = await updateRegionWithValidation(
+        option.country,
+        currentPath
+      )
+
       if (result.removedItems.length > 0) {
         const itemsList = result.removedItems.join(", ")
         toast.info({
@@ -68,16 +81,37 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
           description: `${itemsList} ${result.removedItems.length === 1 ? "is" : "are"} not available in ${option.label} and ${result.removedItems.length === 1 ? "was" : "were"} removed from your cart.`,
         })
       }
-      
+
       // Navigate to new region
       router.push(result.newPath)
       router.refresh()
     } catch (error: any) {
       toast.error({
         title: "Error switching region",
-        description: error?.message || "Failed to update region. Please try again.",
+        description:
+          error?.message || "Failed to update region. Please try again.",
       })
     }
+  }
+
+  if (!mounted) {
+    return (
+      <div className="md:flex gap-2 items-center justify-end relative">
+        <Label className="label-md hidden md:block">Shipping to</Label>
+        <div>
+          <button
+            type="button"
+            className="relative w-16 flex justify-between items-center h-10 bg-component-secondary text-left cursor-default focus:outline-none border rounded-lg text-base-regular"
+            disabled
+            aria-hidden="true"
+          >
+            <div className="txt-compact-small flex items-start mx-auto">
+              {countryCode ? countryCode.toString().toUpperCase() : ""}
+            </div>
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (

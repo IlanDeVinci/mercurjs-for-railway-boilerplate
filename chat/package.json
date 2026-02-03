@@ -10,5 +10,11 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.1",
     "ws": "^8.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.2"
+  },
+  "scripts": {
+    "lint": "eslint src --ext js,jsx --max-warnings 0"
   }
 }

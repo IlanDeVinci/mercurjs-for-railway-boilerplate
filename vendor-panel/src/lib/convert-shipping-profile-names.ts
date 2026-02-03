@@ -1,7 +1,11 @@
 export default (sp: any) => {
-  const name = sp.shipping_profile.name.includes(":")
-    ? sp.shipping_profile.name.split(":")[1]
-    : sp.shipping_profile.name
+  const rawName = sp?.shipping_profile?.name
+  if (!rawName) {
+    return sp
+  }
+
+  const name = rawName.includes(":") ? rawName.split(":")[1] : rawName
+
   return {
     ...sp,
     shipping_profile: {

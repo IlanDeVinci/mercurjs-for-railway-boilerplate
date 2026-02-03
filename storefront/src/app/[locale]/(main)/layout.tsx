@@ -9,9 +9,9 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode
-  params: Promise<{ locale: string }>
+  params: { locale: string }
 }>) {
-  const { locale } = await params
+  const { locale } = params
 
   const user = await retrieveCustomer()
   const regionCheck = await checkRegion(locale)

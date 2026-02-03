@@ -18,6 +18,11 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent $PSScriptRoot
+$procFile = Join-Path $root '.dev-processes.json'
+if (Test-Path $procFile) {
+  Remove-Item -Force -Path $procFile
+}
+$script:StartedProcesses = @()
 
 function Assert-LastExitCode {
   param(
@@ -92,8 +97,9 @@ function Start-Proc {
   }
 
   $full = "Set-Location -LiteralPath '" + ($Cwd -replace "'","''") + "'; " + $envPrefix + $Command
-  Start-Process -WorkingDirectory $Cwd -WindowStyle Normal -FilePath "powershell.exe" -ArgumentList @('-NoExit','-Command', $full) | Out-Null
-  Write-Host "Started: $Title"
+  $proc = Start-Process -WorkingDirectory $Cwd -WindowStyle Normal -FilePath "powershell.exe" -ArgumentList @('-NoExit','-Command', $full) -PassThru
+  $script:StartedProcesses += [pscustomobject]@{ Id = $proc.Id; Title = $Title }
+  Write-Host "Started: $Title (PID $($proc.Id))"
 }
 
 function Wait-TcpPort {
@@ -236,6 +242,10 @@ if (-not $NoFrontends) {
   Start-Proc -Cwd (Join-Path $root 'storefront') -Title 'storefront' -Command 'pnpm dev'
   Start-Proc -Cwd (Join-Path $root 'admin-panel') -Title 'admin-panel' -Command 'pnpm dev' -ExtraEnv @{ PORT = "$AdminPort" }
   Start-Proc -Cwd (Join-Path $root 'vendor-panel') -Title 'vendor-panel' -Command 'pnpm dev' -ExtraEnv @{ PORT = "$VendorPort" }
+}
+
+if ($script:StartedProcesses.Count -gt 0) {
+  $script:StartedProcesses | ConvertTo-Json -Depth 2 | Set-Content -Path $procFile -Encoding UTF8
 }
 
 Write-Host ''

@@ -22,6 +22,7 @@ export const importProductsQuery = async (file: File) => {
   return await fetch(`${backendUrl}/vendor/products/import`, {
     method: "POST",
     body: formData,
+    credentials: "include",
     headers: {
       authorization: `Bearer ${token}`,
       "x-publishable-api-key": publishableApiKey,
@@ -41,6 +42,7 @@ export const uploadFilesQuery = async (files: any[]) => {
   return await fetch(`${backendUrl}/vendor/uploads`, {
     method: "POST",
     body: formData,
+    credentials: "include",
     headers: {
       authorization: `Bearer ${token}`,
       "x-publishable-api-key": publishableApiKey,
@@ -79,6 +81,7 @@ export const fetchQuery = async (
   )
   const response = await fetch(`${backendUrl}${url}${params && `?${params}`}`, {
     method: method,
+    credentials: "include",
     headers: {
       authorization: `Bearer ${bearer}`,
       "Content-Type": "application/json",

@@ -30,7 +30,8 @@ const ChatContext = createContext<ChatContextValue>({
 })
 
 const DEFAULT_CHAT_URL =
-  process.env.NEXT_PUBLIC_CHAT_URL || "http://localhost:4010"
+  (typeof process !== "undefined" && process.env.NEXT_PUBLIC_CHAT_URL) ||
+  "http://localhost:4010"
 
 export function ChatProvider({
   user,
