@@ -68,6 +68,7 @@ Make a .env.local file and copy the code below
 VITE_MEDUSA_BASE='/'
 VITE_MEDUSA_STOREFRONT_URL=http://localhost:3000
 VITE_MEDUSA_BACKEND_URL=http://localhost:9000
+VITE_CHAT_URL=http://localhost:4010
 ```
 
 &nbsp;
@@ -82,5 +83,4 @@ npm run dev
 
 ## Guides
 
-<a href="https://talkjs.com/docs/Reference/Concepts/Sessions/" target="_blank">How
-to get TalkJs App ID</a>
+Chat is provided by the self-hosted chat service. Set `VITE_CHAT_URL` to point at it.

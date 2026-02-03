@@ -2,7 +2,7 @@ import { ProductListingSkeleton } from "@/components/organisms/ProductListingSke
 import { Suspense } from "react"
 
 import { Breadcrumbs } from "@/components/atoms"
-import { AlgoliaProductsListing, ProductListing } from "@/components/sections"
+import { MeiliProductsListing, ProductListing } from "@/components/sections"
 import { getRegion } from "@/lib/data/regions"
 import isBot from "@/lib/helpers/isBot"
 import { headers } from "next/headers"
@@ -65,8 +65,7 @@ export async function generateMetadata({
   }
 }
 
-const ALGOLIA_ID = process.env.NEXT_PUBLIC_ALGOLIA_ID
-const ALGOLIA_SEARCH_KEY = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY
+const MEILI_HOST = process.env.NEXT_PUBLIC_MEILI_HOST
 
 async function AllCategories({
   params,
@@ -144,13 +143,12 @@ async function AllCategories({
       <h1 className="heading-xl uppercase">All Products</h1>
 
       <Suspense fallback={<ProductListingSkeleton />}>
-        {bot || !ALGOLIA_ID || !ALGOLIA_SEARCH_KEY ? (
+        {bot ? (
           <ProductListing showSidebar locale={locale} />
+        ) : MEILI_HOST ? (
+          <MeiliProductsListing locale={locale} currency_code={currency_code} />
         ) : (
-          <AlgoliaProductsListing
-            locale={locale}
-            currency_code={currency_code}
-          />
+          <ProductListing showSidebar locale={locale} />
         )}
       </Suspense>
     </main>

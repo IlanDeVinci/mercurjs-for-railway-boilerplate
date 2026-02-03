@@ -13,22 +13,31 @@
   </a>
 </p>
 
-
 ## 🚀 Quick Start
 
 ## Deploy with no manual setup in minutes
+
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/mercurjs?referralCode=-Yg50p)
 
 ### Any questinos about MercurJS on Railway? Ask here: https://station.railway.com/templates/mercurjs-10ceb1ef
 
 ## 🖥️ Local Setup
 
+For the most up-to-date commands to start every service (Docker + local dev), see:
+
+- [COMMANDS.md](COMMANDS.md)
+- [docs/LOCAL_DEV_SETUP.md](docs/LOCAL_DEV_SETUP.md)
+
+For production hosting recommendations (Neon/Vercel/Fly/etc), see:
+
+- [docs/PRODUCTION.md](docs/PRODUCTION.md)
+
 ### 📋 Prerequisites
 
 Before starting, ensure you have the following installed:
 
 - **Node.js 20+** (Recommended: v22.13.1)
-- **PostgreSQL 14+** (Running locally on port 5432)
+- **Docker Desktop** (recommended for Postgres/Redis/Meilisearch/Chat)
 - **pnpm** (Package manager)
 
 ### 🗂️ Project Structure
@@ -150,12 +159,12 @@ pnpm dev
 
 ## 🔗 Service URLs
 
-| Service      | URL                        | Login Credentials        |
-|--------------|----------------------------|--------------------------|
-| Backend API  | http://localhost:9000      | N/A                      |
-| Admin Panel  | http://localhost:5173      | admin@test.com / supersecret |
-| Vendor Panel | http://localhost:7001      | vendor@test.com / supersecret |
-| Storefront   | http://localhost:3000      | N/A                      |
+| Service      | URL                   | Login Credentials             |
+| ------------ | --------------------- | ----------------------------- |
+| Backend API  | http://localhost:9000 | N/A                           |
+| Admin Panel  | http://localhost:5173 | admin@test.com / supersecret  |
+| Vendor Panel | http://localhost:7001 | vendor@test.com / supersecret |
+| Storefront   | http://localhost:3000 | N/A                           |
 
 ## ⚙️ Environment Variables
 
@@ -169,7 +178,7 @@ All environment files have been created:
 ### Backend Configuration
 
 ```env
-DATABASE_URL=postgres://postgres:postgres@localhost:5432/mercurjs
+DATABASE_URL=postgres://postgres:postgres@localhost:5433/mercurjs
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=supersecret
 COOKIE_SECRET=supersecret
@@ -218,13 +227,15 @@ MINIO_BUCKET=custom-bucket-name  # Optional, defaults to 'medusa-media'
 If you get database connection errors:
 
 1. Verify PostgreSQL is running:
+
    ```bash
    pg_isready -U postgres
    ```
 
 2. Check the connection string in `backend/.env`:
+
    ```env
-   DATABASE_URL=postgres://postgres:postgres@localhost:5432/mercurjs
+   DATABASE_URL=postgres://postgres:postgres@localhost:5433/mercurjs
    ```
 
 3. Ensure the database exists:
@@ -237,6 +248,7 @@ If you get database connection errors:
 If you get Redis connection errors:
 
 1. Verify Redis is running:
+
    ```bash
    redis-cli ping
    ```
@@ -251,6 +263,7 @@ If you get Redis connection errors:
 If a port is already in use, you can:
 
 1. Kill the process using the port (Windows):
+
    ```bash
    netstat -ano | findstr :9000
    taskkill /PID <PID> /F

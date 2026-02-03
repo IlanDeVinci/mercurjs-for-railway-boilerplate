@@ -66,9 +66,6 @@ export const ProductSidebar = () => {
           </Button>
         </div>
       </div>
-      <div className="absolute z-10 bg-primary p-8 w-full top-4 heading-md text-center rounded-lg shadow-md">
-        Set your Algolia ID and configure filters to enable product filtering
-      </div>
     </aside>
   )
 }

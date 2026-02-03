@@ -65,7 +65,7 @@ export const CartDropdown = () => {
     ) {
       setOpen(true)
     }
-  }, [cartItemsCount, previousItemCount])
+  }, [cartItemsCount, previousItemCount, pathname])
 
   return (
     <div

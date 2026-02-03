@@ -26,12 +26,12 @@ export const CartAddressSection = ({
 
   const isAddress = Boolean(
     cart?.shipping_address &&
-      cart?.shipping_address.first_name &&
-      cart?.shipping_address.last_name &&
-      cart?.shipping_address.address_1 &&
-      cart?.shipping_address.city &&
-      cart?.shipping_address.postal_code &&
-      cart?.shipping_address.country_code
+    cart?.shipping_address.first_name &&
+    cart?.shipping_address.last_name &&
+    cart?.shipping_address.address_1 &&
+    cart?.shipping_address.city &&
+    cart?.shipping_address.postal_code &&
+    cart?.shipping_address.country_code
   )
   const isOpen = searchParams.get("step") === "address" || !isAddress
 
@@ -47,7 +47,7 @@ export const CartAddressSection = ({
     if (!isAddress) {
       router.replace(pathname + "?step=address")
     }
-  }, [isAddress])
+  }, [isAddress, pathname, router])
 
   const handleEdit = () => {
     router.replace(pathname + "?step=address")

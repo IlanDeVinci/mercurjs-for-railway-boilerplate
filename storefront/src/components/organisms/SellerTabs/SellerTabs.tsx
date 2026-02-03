@@ -1,12 +1,11 @@
 import { Suspense } from "react"
 import { ProductListingSkeleton } from "../ProductListingSkeleton/ProductListingSkeleton"
-import { AlgoliaProductsListing, ProductListing } from "@/components/sections"
+import { MeiliProductsListing, ProductListing } from "@/components/sections"
 import { TabsContent, TabsList } from "@/components/molecules"
 import { SellerReviewTab } from "@/components/cells"
 import { getRegion } from "@/lib/data/regions"
 
-const ALGOLIA_ID = process.env.NEXT_PUBLIC_ALGOLIA_ID
-const ALGOLIA_SEARCH_KEY = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY
+const MEILI_HOST = process.env.NEXT_PUBLIC_MEILI_HOST
 
 export const SellerTabs = ({
   tab,
@@ -34,14 +33,14 @@ export const SellerTabs = ({
       <TabsList list={tabsList} activeTab={tab} />
       <TabsContent value="products" activeTab={tab}>
         <Suspense fallback={<ProductListingSkeleton />}>
-          {!ALGOLIA_ID || !ALGOLIA_SEARCH_KEY ? (
-            <ProductListing showSidebar seller_id={seller_id} />
-          ) : (
-            <AlgoliaProductsListing
+          {MEILI_HOST ? (
+            <MeiliProductsListing
               locale={locale}
               seller_handle={seller_handle}
               currency_code={currency_code}
             />
+          ) : (
+            <ProductListing showSidebar seller_id={seller_id} />
           )}
         </Suspense>
       </TabsContent>

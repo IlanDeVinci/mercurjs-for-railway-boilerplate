@@ -34,7 +34,7 @@
 
 ## Compatibility
 
-This starter is compatible with versions >= 2 of `@medusajs/medusa`. 
+This starter is compatible with versions >= 2 of `@medusajs/medusa`.
 
 ## Getting Started
 
@@ -42,26 +42,30 @@ Visit the [Quickstart Guide](https://docs.medusajs.com/learn/installation) to se
 
 Visit the [Docs](https://docs.medusajs.com/learn/installation#get-started) to learn more about our system requirements.
 
-## Algolia Integration
+## Meilisearch Integration
 
-This backend includes automatic Algolia index setup via an initialization script. When you provide the following environment variables:
+This backend supports self-hosted search via Meilisearch.
+
+Set the following environment variables:
 
 ```
-ALGOLIA_API_KEY=your_admin_api_key
-ALGOLIA_APP_ID=your_application_id
+MEILI_HOST=http://localhost:7700
+MEILI_INDEX_PRODUCTS=products
+# Optional for local/dev if Meilisearch auth is enabled:
+# MEILI_MASTER_KEY=...
+# MEILI_API_KEY=...
 ```
 
-The `init-algolia` script runs before the backend starts and will:
-1. Check if the "products" index exists in your Algolia application
-2. Create the index if it doesn't exist
-3. Configure the index using settings from `algolia-config.json` in the backend root directory
+On startup, the `init-meili` script runs before the backend starts and will:
 
-**Important Notes:**
-- Use your **Admin API Key** (not the Search-Only API Key) for the backend, as it needs write permissions to create indexes and sync products.
-- If you modify the Algolia configuration, **make sure to update both** `backend/algolia-config.json` and `storefront/algolia-config.json` to keep them aligned. The backend config is used to create/configure the index, while the storefront config is used by the frontend search interface.
-- The init script is run as part of the `start` command: `pnpm run init-algolia`
+1. Ensure the products index exists
+2. Apply conservative index settings (searchable + filterable attributes)
 
-No manual index creation or configuration is required - everything happens automatically on backend startup!
+To rebuild the index from the database at any time:
+
+```
+pnpm run reindex-meili
+```
 
 ## What is Medusa
 

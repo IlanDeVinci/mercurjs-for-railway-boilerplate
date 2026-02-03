@@ -22,20 +22,21 @@ for <a href="https://github.com/mercurjs/mercur">Mercur</a> - Open Source Market
 
 ## Vendor Panel for Mercur
 
-The Vendor Panel is a pivotal component of the MercurJS ecosystem, designed to provide vendors with an intuitive interface to oversee their marketplace activities. 
+The Vendor Panel is a pivotal component of the MercurJS ecosystem, designed to provide vendors with an intuitive interface to oversee their marketplace activities.
 
 - Product Management: Add, edit, and organize products with ease.
 - Order Tracking: Monitor order statuses and manage fulfillment processes.
 - Store Customization: Update vendor store details
 - Review Handling: Engage with customer feedback to improve service quality.
-- Analytics Dashboard: Gain insights into sales performance and customer behavior. 
+- Analytics Dashboard: Gain insights into sales performance and customer behavior.
 
 ### Vendor Panel - Product Management View
+
 ![Vendor Store - Frontend View](https://cdn.prod.website-files.com/6790aeffc4b432ccaf1b56e5/68304fb2466a73f093aa5965_Adding%20Products%20_%20Mercur.png)
 
 ### Vendor Store - Frontend View
-![Vendor Store - Frontend View](https://cdn.prod.website-files.com/6790aeffc4b432ccaf1b56e5/68304b8674abb6fff86a2dbf_Cart%20and%20Vendor%20Page%20_%20Mercur%20B2C%20Storefront.png)
 
+![Vendor Store - Frontend View](https://cdn.prod.website-files.com/6790aeffc4b432ccaf1b56e5/68304b8674abb6fff86a2dbf_Cart%20and%20Vendor%20Page%20_%20Mercur%20B2C%20Storefront.png)
 
 # Part of Mercur
 
@@ -44,7 +45,6 @@ The Vendor Panel is a pivotal component of the MercurJS ecosystem, designed to p
 Mercur is a platform to start, customize, manage, and scale your marketplace for every business model with a modern technology stack.
 
 ![Mercur](https://cdn.prod.website-files.com/6790aeffc4b432ccaf1b56e5/67a1020f202572832c954ead_6b96703adfe74613f85133f83a19b1f0_Fleek%20Tilt%20-%20Readme.png)
-
 
 # Quickstart
 
@@ -80,7 +80,7 @@ Make a .env.local file and copy the code below
 VITE_MEDUSA_BASE='/'
 VITE_MEDUSA_STOREFRONT_URL=http://localhost:3000
 VITE_MEDUSA_BACKEND_URL=http://localhost:9000
-VITE_TALK_JS_APP_ID=<talkjs public key here>
+VITE_CHAT_URL=http://localhost:4010
 VITE_DISABLE_SELLERS_REGISTRATION=false
 ```
 
@@ -96,5 +96,4 @@ npm run dev
 
 ## Guides
 
-<a href="https://talkjs.com/docs/Reference/Concepts/Sessions/" target="_blank">How
-to get TalkJs App ID</a>
+Chat is provided by the self-hosted chat service. Set `VITE_CHAT_URL` to point at it.

@@ -8,7 +8,7 @@ import { HttpTypes } from "@medusajs/types"
 import { SellerProps } from "@/types/seller"
 import { MessageIcon } from "@/icons"
 
-const TALKJS_APP_ID = process.env.NEXT_PUBLIC_TALKJS_APP_ID || ""
+const CHAT_URL = process.env.NEXT_PUBLIC_CHAT_URL || "http://localhost:4010"
 
 export const Chat = ({
   user,
@@ -29,7 +29,7 @@ export const Chat = ({
 }) => {
   const [modal, setModal] = useState(false)
 
-  if (!TALKJS_APP_ID) {
+  if (!CHAT_URL || !user?.id) {
     return null
   }
 
@@ -53,14 +53,12 @@ export const Chat = ({
                 id: user?.id || "",
                 name: `${user?.first_name} ${user?.last_name}` || "",
                 email: user?.email || null,
-                photoUrl: "/talkjs-placeholder.jpg",
                 role: "customer",
               }}
               supportUser={{
                 id: seller?.id || "",
                 name: seller?.name || "",
                 email: seller?.email || null,
-                photoUrl: seller.photo || "/talkjs-placeholder.jpg",
                 role: "seller",
               }}
             />

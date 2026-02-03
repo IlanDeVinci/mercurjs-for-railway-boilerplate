@@ -1,7 +1,7 @@
 import { HttpTypes } from "@medusajs/types"
 import { Container } from "@medusajs/ui"
 import { mapKeys } from "lodash"
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { Input } from "@/components/atoms"
 import AddressSelect from "@/components/cells/AddressSelect/AddressSelect"
 import CountrySelect from "@/components/cells/CountrySelect/CountrySelect"
@@ -41,33 +41,33 @@ const ShippingAddress = ({
       customer?.addresses.filter(
         (a) => a.country_code && a.country_code === locale
       ),
-    [customer?.addresses]
+    [customer?.addresses, locale]
   )
 
-  const setFormAddress = (
-    address?: HttpTypes.StoreCartAddress,
-    email?: string
-  ) => {
-    address &&
-      setFormData((prevState: Record<string, any>) => ({
-        ...prevState,
-        "shipping_address.first_name": address?.first_name || "",
-        "shipping_address.last_name": address?.last_name || "",
-        "shipping_address.address_1": address?.address_1 || "",
-        "shipping_address.company": address?.company || "",
-        "shipping_address.postal_code": address?.postal_code || "",
-        "shipping_address.city": address?.city || "",
-        "shipping_address.country_code": address?.country_code || locale,
-        "shipping_address.province": address?.province || "",
-        "shipping_address.phone": address?.phone || "",
-      }))
+  const setFormAddress = useCallback(
+    (address?: HttpTypes.StoreCartAddress, email?: string) => {
+      address &&
+        setFormData((prevState: Record<string, any>) => ({
+          ...prevState,
+          "shipping_address.first_name": address?.first_name || "",
+          "shipping_address.last_name": address?.last_name || "",
+          "shipping_address.address_1": address?.address_1 || "",
+          "shipping_address.company": address?.company || "",
+          "shipping_address.postal_code": address?.postal_code || "",
+          "shipping_address.city": address?.city || "",
+          "shipping_address.country_code": address?.country_code || locale,
+          "shipping_address.province": address?.province || "",
+          "shipping_address.phone": address?.phone || "",
+        }))
 
-    email &&
-      setFormData((prevState: Record<string, any>) => ({
-        ...prevState,
-        email: email,
-      }))
-  }
+      email &&
+        setFormData((prevState: Record<string, any>) => ({
+          ...prevState,
+          email: email,
+        }))
+    },
+    [locale]
+  )
 
   useEffect(() => {
     // Ensure cart is not null and has a shipping_address before setting form data
@@ -78,7 +78,7 @@ const ShippingAddress = ({
     if (cart && !cart.email && customer?.email) {
       setFormAddress(undefined, customer.email)
     }
-  }, [cart]) // Add cart as a dependency
+  }, [cart, customer?.email, setFormAddress])
 
   const handleChange = (
     e: React.ChangeEvent<

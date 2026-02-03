@@ -36,5 +36,5 @@ export * from "./tax-regions";
 export * from "./users";
 export * from "./views";
 export * from "./workflow-executions";
-export * from "./algolia";
+export * from "./meilisearch";
 export * from "./commission";

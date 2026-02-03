@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Medusa build output / generated server
+.medusa
+
+# Build artifacts
+.dist
+build
+dist
+coverage
+
+# Logs / temp
+*.log
+.tmp
+.tmp/
+.cache
+
+# Tooling / editor
+.vscode
+.DS_Store
+
+# Git
+.git
+.gitignore
+
+# Env files (don’t bake secrets into images)
+.env
+.env.*
+
+# Tests (not needed in runtime image)
+integration-tests

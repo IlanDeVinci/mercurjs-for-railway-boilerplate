@@ -1,0 +1,77 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mercurjs
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.7
+    environment:
+      MEILI_NO_ANALYTICS: "true"
+      MEILI_ENV: development
+      MEILI_HTTP_ALLOW_ORIGIN: "http://localhost:3000,http://localhost:5173,http://localhost:5174"
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-dev_meili_master_key}
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili_data:/meili_data
+
+  chat:
+    build:
+      context: ./chat
+    environment:
+      PORT: 4010
+      CHAT_DATABASE_URL: postgres://postgres:postgres@postgres:5432/mercurjs?sslmode=disable
+      CORS_ORIGIN: http://localhost:3000,http://localhost:5173,http://localhost:5174,http://localhost:7000,http://localhost:8001
+      CHAT_JWT_SECRET: ${CHAT_JWT_SECRET:-dev_chat_secret}
+      MEDUSA_BACKEND_URL: http://backend:9000
+      MEDUSA_PUBLISHABLE_KEY: ${MEDUSA_PUBLISHABLE_KEY:-}
+    ports:
+      - "4010:4010"
+    depends_on:
+      - postgres
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    profiles:
+      - backend
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/mercurjs?sslmode=disable
+      REDIS_URL: redis://redis:6379
+      BACKEND_URL: http://localhost:9000
+      STORE_CORS: http://localhost:3000,http://localhost:8000
+      ADMIN_CORS: http://localhost:5173,http://localhost:7000
+      VENDOR_CORS: http://localhost:5174,http://localhost:8001
+      AUTH_CORS: http://localhost:3000,http://localhost:5173,http://localhost:5174,http://localhost:7000,http://localhost:8000,http://localhost:8001
+      JWT_SECRET: supersecret
+      COOKIE_SECRET: supersecret
+      MEILI_HOST: http://meilisearch:7700
+      MEILI_INDEX_PRODUCTS: products
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-dev_meili_master_key}
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres
+      - redis
+      - meilisearch
+
+volumes:
+  postgres_data:
+  redis_data:
+  meili_data:

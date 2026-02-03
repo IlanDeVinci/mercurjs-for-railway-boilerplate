@@ -10866,6 +10866,9 @@
         "priceTemplate": {
           "type": "string"
         },
+        "currentPriceTemplate": {
+          "type": "string"
+        },
         "stockTemplate": {
           "type": "string"
         },

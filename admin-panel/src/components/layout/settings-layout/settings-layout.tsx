@@ -3,7 +3,6 @@ import { Fragment, useEffect, useMemo, useState } from "react";
 import { ArrowUturnLeft, MinusMini } from "@medusajs/icons";
 import { Divider, IconButton, Text, clx } from "@medusajs/ui";
 
-import { useExtension } from "@providers/extension-provider";
 import { Collapsible as RadixCollapsible } from "radix-ui";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
@@ -11,6 +10,8 @@ import { Link, useLocation } from "react-router-dom";
 import { type INavItem, NavItem } from "@components/layout/nav-item";
 import { Shell } from "@components/layout/shell";
 import { UserMenu } from "@components/layout/user-menu";
+
+import { useExtension } from "@providers/extension-provider";
 
 export const SettingsLayout = () => {
   return (
@@ -92,8 +93,8 @@ const useDeveloperRoutes = (): INavItem[] => {
   return useMemo(
     () => [
       {
-        label: t("algolia.domain"),
-        to: "/settings/algolia",
+        label: t("meilisearch.domain"),
+        to: "/settings/meilisearch",
       },
       {
         label: t("apiKeyManagement.domain.publishable"),

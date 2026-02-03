@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MercurJS Chat (self-hosted)</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            margin: 0;
+        }
+
+        .wrap {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .top input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .msgs {
+            flex: 1;
+            padding: 12px;
+            overflow: auto;
+            background: #fafafa;
+        }
+
+        .msg {
+            margin: 6px 0;
+            padding: 10px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #eee;
+        }
+
+        .meta {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+
+        .composer {
+            padding: 10px 12px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 8px;
+        }
+
+        .composer input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .composer button {
+            padding: 10px 14px;
+            border: 0;
+            background: #111;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .hint {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="top">
+            <label>Room <input id="room" /></label>
+            <label>User ID <input id="userId" /></label>
+            <label>Name <input id="name" /></label>
+            <label>Peer ID <input id="peerId" /></label>
+            <span class="hint">Tip: pass ?room=...&userId=...&name=... in the URL</span>
+        </div>
+        <div id="msgs" class="msgs"></div>
+        <form id="composer" class="composer">
+            <input id="text" placeholder="Type a message..." autocomplete="off" />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const qs = new URLSearchParams(location.search);
+        const roomEl = document.getElementById('room');
+        const userIdEl = document.getElementById('userId');
+        const nameEl = document.getElementById('name');
+        const peerIdEl = document.getElementById('peerId');
+        const msgsEl = document.getElementById('msgs');
+        const textEl = document.getElementById('text');
+
+        roomEl.value = qs.get('room') || 'general';
+        userIdEl.value = qs.get('userId') || (localStorage.getItem('chat.userId') || (Math.random().toString(36).slice(2)));
+        nameEl.value = qs.get('name') || (localStorage.getItem('chat.name') || '');
+        peerIdEl.value = qs.get('peerId') || (localStorage.getItem('chat.peerId') || 'peer');
+        localStorage.setItem('chat.userId', userIdEl.value);
+
+        let currentRoomId = null;
+
+        async function ensureRoom() {
+            const roomKey = roomEl.value;
+            const userId = userIdEl.value;
+            const name = nameEl.value;
+            const peerId = peerIdEl.value;
+            localStorage.setItem('chat.name', name);
+            localStorage.setItem('chat.peerId', peerId);
+
+            const res = await fetch('/api/rooms', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    key: roomKey,
+                    subject: `Room ${roomKey}`,
+                    participants: [
+                        { userId, name, role: 'user' },
+                        { userId: peerId, name: 'Peer', role: 'peer' },
+                    ],
+                })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Failed to create room');
+            currentRoomId = data.roomId;
+            return currentRoomId;
+        }
+
+        function addMessage(m) {
+            const div = document.createElement('div');
+            div.className = 'msg';
+            const meta = document.createElement('div');
+            meta.className = 'meta';
+            const when = new Date(m.ts).toLocaleString();
+            meta.textContent = `${m.name || m.userId} · ${when}`;
+            const body = document.createElement('div');
+            body.textContent = m.text;
+            div.appendChild(meta);
+            div.appendChild(body);
+            msgsEl.appendChild(div);
+            msgsEl.scrollTop = msgsEl.scrollHeight;
+        }
+
+        async function loadHistory() {
+            msgsEl.innerHTML = '';
+            const roomId = await ensureRoom();
+            const res = await fetch(`/api/messages?roomId=${encodeURIComponent(roomId)}`);
+            const data = await res.json();
+            (data.messages || []).forEach(addMessage);
+        }
+
+        function connect() {
+            const wsProto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const ws = new WebSocket(`${wsProto}//${location.host}/ws`);
+
+            ws.addEventListener('open', () => {
+                ws.send(JSON.stringify({ type: 'join', roomId: currentRoomId, userId: userIdEl.value, name: nameEl.value }));
+            });
+
+            ws.addEventListener('message', (ev) => {
+                const msg = JSON.parse(ev.data);
+                if (msg.type === 'message') addMessage(msg.message);
+            });
+
+            return ws;
+        }
+
+        let ws = null;
+
+        roomEl.addEventListener('change', async () => {
+            await loadHistory();
+            if (ws) ws.close();
+            ws = connect();
+        });
+
+        peerIdEl.addEventListener('change', async () => {
+            await loadHistory();
+            if (ws) ws.close();
+            ws = connect();
+        });
+
+        document.getElementById('composer').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = textEl.value.trim();
+            if (!text) return;
+            const payload = { type: 'send', roomId: currentRoomId, userId: userIdEl.value, name: nameEl.value, text };
+            localStorage.setItem('chat.name', nameEl.value);
+            ws?.send(JSON.stringify(payload));
+            textEl.value = '';
+        });
+
+        (async () => {
+            await loadHistory();
+            ws = connect();
+        })();
+    </script>
+</body>
+
+</html>

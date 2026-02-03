@@ -4,7 +4,7 @@ import { Suspense } from "react"
 
 import type { Metadata } from "next"
 import { Breadcrumbs } from "@/components/atoms"
-import { AlgoliaProductsListing, ProductListing } from "@/components/sections"
+import { MeiliProductsListing, ProductListing } from "@/components/sections"
 import { notFound } from "next/navigation"
 import isBot from "@/lib/helpers/isBot"
 import { headers } from "next/headers"
@@ -76,8 +76,7 @@ export async function generateMetadata({
   }
 }
 
-const ALGOLIA_ID = process.env.NEXT_PUBLIC_ALGOLIA_ID
-const ALGOLIA_SEARCH_KEY = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY
+const MEILI_HOST = process.env.NEXT_PUBLIC_MEILI_HOST
 
 async function Category({
   params,
@@ -163,14 +162,16 @@ async function Category({
       <h1 className="heading-xl uppercase">{category.name}</h1>
 
       <Suspense fallback={<ProductListingSkeleton />}>
-        {bot || !ALGOLIA_ID || !ALGOLIA_SEARCH_KEY ? (
+        {bot ? (
           <ProductListing category_id={category.id} showSidebar />
-        ) : (
-          <AlgoliaProductsListing
+        ) : MEILI_HOST ? (
+          <MeiliProductsListing
             category_id={category.id}
             locale={locale}
             currency_code={currency_code}
           />
+        ) : (
+          <ProductListing category_id={category.id} showSidebar />
         )}
       </Suspense>
     </main>

@@ -1641,15 +1641,15 @@ export function getRouteMap({
               ],
             },
             {
-              path: "algolia",
+              path: "meilisearch",
               element: <Outlet />,
               handle: {
-                breadcrumb: () => t("algolia.domain"),
+                breadcrumb: () => t("meilisearch.domain"),
               },
               children: [
                 {
                   path: "",
-                  lazy: () => import("../../routes/algolia"),
+                  lazy: () => import("../../routes/meilisearch"),
                 },
               ],
             },
