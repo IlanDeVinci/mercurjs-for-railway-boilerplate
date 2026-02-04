@@ -1,4 +1,3 @@
-export default {}
 "use server"
 
 import { sdk } from "../config"
@@ -63,7 +62,7 @@ export const getRegion = async (countryCode: string) => {
       : regionMap.get("us")
 
     return region
-  } catch (e: any) {
+  } catch {
     return null
   }
 }

@@ -5,7 +5,6 @@ import { Product } from "@/types/product"
 import { HttpTypes } from "@medusajs/types"
 import { getProductPrice } from "@/lib/helpers/get-product-price"
 
-export default {}
 export const HomeProductsCarousel = async ({
   locale,
   sellerProducts,

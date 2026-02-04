@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import { Button, Card } from "@/components/atoms"
 import { AddressForm, Modal } from "@/components/molecules"

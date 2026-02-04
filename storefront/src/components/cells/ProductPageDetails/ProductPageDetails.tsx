@@ -1,6 +1,5 @@
 import { ProductPageAccordion } from "@/components/molecules"
 
-export default {}
 export const ProductPageDetails = ({ details }: { details: string }) => {
   if (!details) return null
 

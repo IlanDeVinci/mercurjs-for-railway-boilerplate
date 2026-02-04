@@ -1,6 +1,5 @@
 import { toast as sonnerToast } from "sonner"
 
-export default {}
 export const toast = {
   info: ({ description, title }: { description?: string; title: string }) => {
     sonnerToast.info(title, {

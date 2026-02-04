@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import { Pagination } from "@/components/cells"
 import { usePagination } from "@/hooks/usePagination"

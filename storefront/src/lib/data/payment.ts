@@ -1,4 +1,3 @@
-export default {}
 "use server"
 
 import { sdk } from "../config"

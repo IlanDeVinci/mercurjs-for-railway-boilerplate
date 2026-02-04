@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Button } from "@/components/atoms"
@@ -63,8 +62,8 @@ export const ProductDetailsHeader = ({
 
   // get selected variant id
   const variantId =
-    product.variants?.find(({ options }: { options: any }) =>
-      options?.every((option: any) =>
+    product.variants?.find((variant) =>
+      variant.options?.every((option) =>
         selectedVariant[option.option?.title.toLowerCase() || ""]?.includes(
           option.value
         )
@@ -118,7 +117,7 @@ export const ProductDetailsHeader = ({
         quantity: 1,
         countryCode: locale,
       })
-    } catch (error) {
+    } catch {
       toast.error({
         title: "Error adding to cart",
         description: "Some variant does not have the required inventory",
@@ -180,8 +179,8 @@ export const ProductDetailsHeader = ({
         {!hasAnyPrice
           ? "NOT AVAILABLE IN YOUR REGION"
           : variantStock && variantHasPrice
-          ? "ADD TO CART"
-          : "OUT OF STOCK"}
+            ? "ADD TO CART"
+            : "OUT OF STOCK"}
       </Button>
       {/* Seller message */}
 

@@ -1,6 +1,5 @@
 import { z } from "zod"
 
-export default {}
 export const profilePasswordSchema = z.object({
   currentPassword: z.string().nonempty(""),
   newPassword: z.string().nonempty(""),

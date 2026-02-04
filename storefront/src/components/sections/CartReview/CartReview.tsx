@@ -3,8 +3,9 @@
 import PaymentButton from "./PaymentButton"
 import { CartItems } from "./CartItems"
 import { CartSummary } from "@/components/organisms"
+import { HttpTypes } from "@medusajs/types"
 
-const Review = ({ cart }: { cart: any }) => {
+const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
   const paidByGiftcard =
     cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
 

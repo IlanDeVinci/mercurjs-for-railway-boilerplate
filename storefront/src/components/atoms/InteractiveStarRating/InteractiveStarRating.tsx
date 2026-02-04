@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import { StarIcon } from "@/icons"
 import { useState } from "react"

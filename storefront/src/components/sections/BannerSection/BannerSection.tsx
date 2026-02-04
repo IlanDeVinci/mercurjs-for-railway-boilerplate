@@ -2,7 +2,6 @@ import { Button } from "@/components/atoms"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 import Image from "next/image"
 
-export default {}
 export const BannerSection = () => {
   return (
     <section className="bg-tertiary container text-tertiary">

@@ -1,7 +1,7 @@
 import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 import { MeiliSearch } from "meilisearch";
-import { toMeiliDoc } from "../utils/meili-doc";
+import { toMeiliDoc, type ProductGraph } from "../utils/meili-doc";
 
 export default async function meiliProductCreated({
   event: { data },
@@ -41,7 +41,7 @@ export default async function meiliProductCreated({
       filters: { id: [data.id] },
     });
 
-    const product = (products as any[])?.[0];
+    const product = (products as ProductGraph[])?.[0];
     if (!product) return;
 
     await index.addDocuments([toMeiliDoc(product)]);

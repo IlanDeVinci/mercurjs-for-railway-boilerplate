@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Card } from "@/components/atoms"
@@ -8,14 +7,13 @@ import { convertToLocale } from "@/lib/helpers/money"
 import { parcelStatuses, steps } from "@/lib/helpers/parcel-statuses"
 import { cn } from "@/lib/utils"
 import { useEffect, useRef, useState } from "react"
+import { HttpTypes } from "@medusajs/types"
 
 export const ParcelAccordionItems = ({
   order,
-  index,
   currency_code,
 }: {
-  order: any
-  index: number
+  order: HttpTypes.StoreOrder
   currency_code: string
 }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,10 +35,7 @@ export const ParcelAccordionItems = ({
 
   const status = parcelStatuses(order.fulfillment_status)
 
-  const totalItems = order.items.reduce(
-    (acc: number, item: any) => acc + item.quantity,
-    0
-  )
+  const totalItems = order.items.reduce((acc, item) => acc + item.quantity, 0)
 
   return (
     <Card key={order.id} className="border-b rounded-sm p-0">
@@ -90,7 +85,7 @@ export const ParcelAccordionItems = ({
         }}
       >
         <div className="p-4">
-          {order.items.map((item: any) => (
+          {order.items.map((item) => (
             <OrderProductListItem
               key={item.id + item.variant_id}
               item={item}

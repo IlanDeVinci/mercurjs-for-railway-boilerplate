@@ -1,11 +1,11 @@
 import { OrderProductListItem } from "@/components/cells"
+import { HttpTypes } from "@medusajs/types"
 
-export default {}
 export const OrderParcelItems = ({
   items,
   currency_code,
 }: {
-  items: any[]
+  items: HttpTypes.StoreOrderLineItem[]
   currency_code: string
 }) => {
   return (

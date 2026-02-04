@@ -18,7 +18,6 @@ import { TabsTrigger } from "./TabsTrigger/TabsTrigger"
 import { NavigationItem } from "./NavigationItem/NavigationItem"
 import { LogoutButton } from "./LogoutButton/LogoutButton"
 
-export default {}
 export {
   Button,
   IconButton,

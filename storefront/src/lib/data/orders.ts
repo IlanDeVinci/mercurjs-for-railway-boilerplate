@@ -1,4 +1,3 @@
-export default {}
 "use server"
 
 import { SellerProps } from "@/types/seller"
@@ -13,7 +12,7 @@ export const retrieveOrderSet = async (id: string) => {
   }
 
   return sdk.client
-    .fetch<any>(`/store/order-set/${id}`, {
+    .fetch<{ order_set: Record<string, unknown> }>(`/store/order-set/${id}`, {
       method: "GET",
       headers,
       cache: "no-cache",
@@ -49,7 +48,7 @@ export const retrieveOrder = async (id: string) => {
     .catch((err) => medusaError(err))
 }
 
-export const createReturnRequest = async (data: any) => {
+export const createReturnRequest = async (data: Record<string, unknown>) => {
   const headers = {
     ...(await getAuthHeaders()),
     "Content-Type": "application/json",
@@ -76,7 +75,7 @@ export const getReturns = async () => {
 
   return sdk.client
     .fetch<{
-      order_return_requests: Array<any>
+      order_return_requests: Array<Record<string, unknown>>
     }>(`/store/return-request`, {
       method: "GET",
       headers,
@@ -92,7 +91,7 @@ export const retriveReturnMethods = async (order_id: string) => {
 
   return sdk.client
     .fetch<{
-      shipping_options: Array<any>
+      shipping_options: Array<HttpTypes.StoreShippingOption>
     }>(`/store/shipping-options/return?order_id=${order_id}`, {
       method: "GET",
       headers,
@@ -105,7 +104,7 @@ export const retriveReturnMethods = async (order_id: string) => {
 export const listOrders = async (
   limit: number = 10,
   offset: number = 0,
-  filters?: Record<string, any>
+  filters?: Record<string, string | number | boolean>
 ) => {
   const headers = {
     ...(await getAuthHeaders()),
@@ -119,8 +118,12 @@ export const listOrders = async (
     .fetch<{
       orders: Array<
         HttpTypes.StoreOrder & {
-          seller: { id: string; name: string; reviews?: any[] }
-          reviews: any[]
+          seller: {
+            id: string
+            name: string
+            reviews?: Array<Record<string, unknown>>
+          }
+          reviews: Array<Record<string, unknown>>
         }
       >
     }>(`/store/orders`, {

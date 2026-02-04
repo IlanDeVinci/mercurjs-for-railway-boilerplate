@@ -1,13 +1,12 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils"
 
-export default {}
 interface ChipProps {
-  value?: React.ReactNode | string;
-  selected?: boolean;
-  disabled?: boolean;
-  color?: boolean;
-  onSelect?: () => void;
-  className?: string;
+  value?: React.ReactNode | string
+  selected?: boolean
+  disabled?: boolean
+  color?: boolean
+  onSelect?: () => void
+  className?: string
 }
 
 export function Chip({
@@ -18,16 +17,13 @@ export function Chip({
   onSelect,
   className,
 }: ChipProps) {
-  const baseClasses = 'chip-wrapper';
-  const selectedClasses = selected ? 'border-primary' : '';
-  const hoverClasses =
-    !disabled && !selected ? 'hover:bg-gray-200' : '';
+  const baseClasses = "chip-wrapper"
+  const selectedClasses = selected ? "border-primary" : ""
+  const hoverClasses = !disabled && !selected ? "hover:bg-gray-200" : ""
   const disabledClasses = disabled
-    ? 'bg-component border-disabled/50 hover:bg-component cursor-not-allowed text-disabled'
-    : 'cursor-pointer';
-  const colorClasses = color
-    ? 'w-[40px] h-[40px] border'
-    : '';
+    ? "bg-component border-disabled/50 hover:bg-component cursor-not-allowed text-disabled"
+    : "cursor-pointer"
+  const colorClasses = color ? "w-[40px] h-[40px] border" : ""
 
   return (
     <div
@@ -41,22 +37,22 @@ export function Chip({
         className
       )}
       onClick={!disabled ? onSelect : undefined}
-      role='button'
+      role="button"
       tabIndex={disabled ? -1 : 0}
     >
       {color ? (
         <span
           className={cn(
-            'w-[32px] h-[32px] bg-action absolute top-[3px] left-[3px] rounded-xs',
-            disabled && 'bg-disabled'
+            "w-[32px] h-[32px] bg-action absolute top-[3px] left-[3px] rounded-xs",
+            disabled && "bg-disabled"
           )}
           style={{
-            backgroundColor: (value || '').toString(),
+            backgroundColor: (value || "").toString(),
           }}
         />
       ) : (
         value
       )}
     </div>
-  );
+  )
 }

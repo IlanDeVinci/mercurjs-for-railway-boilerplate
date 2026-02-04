@@ -12,7 +12,6 @@ import { ProductDetailsPage } from "./ProductDetailsPage/ProductDetailsPage"
 import { MeiliProductsListing } from "./ProductListing/MeiliProductsListing"
 import { OrdersPagination } from "../organisms/OrdersPagination/OrdersPagination"
 
-export default {}
 export {
   Hero,
   HomeProductSection,

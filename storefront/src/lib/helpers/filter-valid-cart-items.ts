@@ -6,7 +6,7 @@ import { HttpTypes } from "@medusajs/types"
  * @param items - Array of cart line items
  * @returns Array of valid cart items that can be safely rendered
  */
-export default {}
+
 export function filterValidCartItems(
   items: HttpTypes.StoreCartLineItem[] | undefined | null
 ): HttpTypes.StoreCartLineItem[] {
@@ -22,4 +22,3 @@ export function filterValidCartItems(
     )
   })
 }
-

@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 import { Fragment } from "react"
+import { HttpTypes } from "@medusajs/types"
 
-export default {}
 export const OrderProductListItem = ({
   item,
   currency_code,
   withDivider,
 }: {
-  item: any
+  item: HttpTypes.StoreOrderLineItem
   currency_code: string
   withDivider?: boolean
 }) => (

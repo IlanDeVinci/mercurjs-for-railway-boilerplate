@@ -3,8 +3,9 @@ import { getPercentageDiff } from "./get-precentage-diff"
 import { convertToLocale } from "./money"
 import { BaseHit, Hit } from "instantsearch.js"
 
-export default {}
-export const getPricesForVariant = (variant: any) => {
+type StoreVariant = HttpTypes.StoreProductVariant
+
+export const getPricesForVariant = (variant: StoreVariant) => {
   if (
     !variant?.calculated_price?.calculated_amount_with_tax &&
     !variant?.calculated_price?.calculated_amount
@@ -82,9 +83,11 @@ export function getProductPrice({
       return null
     }
 
-    return product.variants
-      .filter((v: any) => !!v.calculated_price)
-      .sort((a: any, b: any) => {
+    const variants = product.variants as StoreVariant[]
+
+    return variants
+      .filter((v) => !!v.calculated_price)
+      .sort((a, b) => {
         return a.calculated_price.calculated_amount_with_tax &&
           b.calculated_price.calculated_amount_with_tax
           ? a.calculated_price.calculated_amount_with_tax -
@@ -98,7 +101,7 @@ export function getProductPrice({
       return null
     }
 
-    const variant: any = cheapestVariant()
+    const variant = cheapestVariant()
 
     return getPricesForVariant(variant)
   }
@@ -108,8 +111,8 @@ export function getProductPrice({
       return null
     }
 
-    const variant: any = product.variants?.find(
-      (v: any) => v.id === variantId || v.sku === variantId
+    const variant = (product.variants as StoreVariant[] | undefined)?.find(
+      (v) => v.id === variantId || v.sku === variantId
     )
 
     if (!variant) {

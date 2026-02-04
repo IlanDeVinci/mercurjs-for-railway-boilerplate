@@ -1,11 +1,10 @@
-export default {}
 "use client"
 
 import { HttpTypes } from "@medusajs/types"
 
 import { Chip } from "@/components/atoms"
 import useUpdateSearchParams from "@/hooks/useUpdateSearchParams"
-import { BaseHit, Hit } from "instantsearch.js"
+import { Hit } from "instantsearch.js"
 
 export const ProductVariants = ({
   product,

@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD041 MD034 MD033 MD040 MD024 MD001 MD029 -->
+
 > ## Documentation Index
 >
 > Fetch the complete documentation index at: https://docs.mercurjs.com/llms.txt Use this file to discover all available pages before exploring further.

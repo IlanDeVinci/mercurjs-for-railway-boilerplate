@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { HttpTypes } from "@medusajs/types"
@@ -16,8 +15,14 @@ import { listProducts } from "@/lib/data/products"
 import { getProductPrice } from "@/lib/helpers/get-product-price"
 import { getMeiliFilters } from "@/lib/helpers/get-meili-filters"
 
+type MeiliHit = Record<string, unknown> & {
+  id?: string
+  objectID?: string
+  handle?: string
+}
+
 type MeiliSearchResponse = {
-  hits: Array<Record<string, any>>
+  hits: MeiliHit[]
   estimatedTotalHits?: number
   totalHits?: number
   facetDistribution?: Record<string, Record<string, number>>
@@ -117,9 +122,7 @@ export const MeiliProductsListing = ({
 
         setMeili({ ...meiliRes, hits })
 
-        const handles = hits
-          .map((h: any) => h.handle)
-          .filter(Boolean) as string[]
+        const handles = hits.map((h) => h.handle).filter(Boolean) as string[]
 
         if (!handles.length) {
           setApiProducts([])
@@ -202,8 +205,10 @@ export const MeiliProductsListing = ({
 
   const apiById = new Map(apiProducts.map((p) => [p.id, p]))
   const products = (meili.hits || [])
-    .filter((h: any) => apiById.has(h.objectID))
-    .filter((h: any) => {
+    .filter((h): h is MeiliHit & { objectID: string } =>
+      Boolean(h.objectID && apiById.has(h.objectID))
+    )
+    .filter((h) => {
       const prod = apiById.get(h.objectID)
       return prod ? filterProductsByCurrencyCode(prod) : false
     })
@@ -231,9 +236,9 @@ export const MeiliProductsListing = ({
           ) : (
             <div className="w-full">
               <ul className="flex flex-wrap gap-4">
-                {products.map((hit: any) => (
+                {products.map((hit) => (
                   <ProductCard
-                    api_product={apiById.get(hit.objectID)}
+                    api_product={apiById.get(hit.objectID)!}
                     key={hit.objectID}
                     product={hit}
                   />

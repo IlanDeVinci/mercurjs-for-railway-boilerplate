@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import {
   FieldError,
@@ -13,7 +12,7 @@ import { Button } from "@/components/atoms"
 import { InteractiveStarRating } from "@/components/atoms/InteractiveStarRating/InteractiveStarRating"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { createReview, Order, Review } from "@/lib/data/reviews"
+import { createReview, Order } from "@/lib/data/reviews"
 
 interface Props {
   handleClose?: () => void
@@ -64,7 +63,9 @@ const Form: React.FC<Props> = ({ handleClose, seller }) => {
     }
 
     setError("")
-    handleClose && handleClose()
+    if (handleClose) {
+      handleClose()
+    }
   }
 
   const lettersCount = watch("opinion")?.length

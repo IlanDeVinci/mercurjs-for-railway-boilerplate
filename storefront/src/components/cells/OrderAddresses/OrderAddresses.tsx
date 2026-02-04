@@ -1,9 +1,13 @@
 import { Card } from "@/components/atoms"
 import { retrieveCustomer } from "@/lib/data/customer"
 import { getRegion } from "@/lib/data/regions"
+import { HttpTypes } from "@medusajs/types"
 
-export default {}
-export const OrderAddresses = async ({ singleOrder }: { singleOrder: any }) => {
+export const OrderAddresses = async ({
+  singleOrder,
+}: {
+  singleOrder: HttpTypes.StoreOrder
+}) => {
   const user = await retrieveCustomer()
   const region = await getRegion(singleOrder.shipping_address.country_code)
 

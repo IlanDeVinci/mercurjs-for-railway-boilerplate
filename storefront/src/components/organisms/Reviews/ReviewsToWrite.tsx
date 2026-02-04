@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import { Card, NavigationItem } from "@/components/atoms"
 import { Modal, ReviewForm } from "@/components/molecules"
@@ -8,16 +7,9 @@ import { useState } from "react"
 import { Order } from "@/lib/data/reviews"
 import { navigation } from "./navigation"
 import { OrderCard } from "./OrderCard"
-import { HttpTypes } from "@medusajs/types"
 
 export const ReviewsToWrite = ({ orders }: { orders: Array<Order> }) => {
-  const [showForm, setShowForm] = useState<
-    | (HttpTypes.StoreOrder & {
-        seller: { id: string; name: string; reviews?: any[] }
-        reviews: any[]
-      })
-    | null
-  >(null)
+  const [showForm, setShowForm] = useState<Order | null>(null)
   const pathname = usePathname()
 
   return (

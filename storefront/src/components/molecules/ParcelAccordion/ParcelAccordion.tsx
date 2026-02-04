@@ -3,8 +3,8 @@ import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedL
 import { format } from "date-fns"
 import { convertToLocale } from "@/lib/helpers/money"
 import { ParcelAccordionItems } from "./ParcelAccordionItems"
+import { HttpTypes } from "@medusajs/types"
 
-export default {}
 export const ParcelAccordion = ({
   orderId,
   orderDisplayId,
@@ -18,7 +18,7 @@ export const ParcelAccordion = ({
   createdAt: string | Date
   total: number
   currency_code?: string
-  orders: any[]
+  orders: HttpTypes.StoreOrder[]
   defaultOpen?: boolean
 }) => {
   return (
@@ -49,11 +49,10 @@ export const ParcelAccordion = ({
       </div>
       <div className="mb-4">
         <ul className="w-full">
-          {orders.map((order, index) => (
+          {orders.map((order) => (
             <ParcelAccordionItems
               key={order.id}
               order={order}
-              index={index + 1}
               currency_code={currency_code}
             />
           ))}

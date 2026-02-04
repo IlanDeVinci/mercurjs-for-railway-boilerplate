@@ -2,8 +2,9 @@ import { OrdersPagination } from "@/components/organisms/OrdersPagination/Orders
 import { SingleOrderReturn } from "@/components/organisms/SingleOrderReturn/SingleOrderReturn"
 import { Heading } from "@medusajs/ui"
 import { isEmpty } from "lodash"
+import { HttpTypes } from "@medusajs/types"
+import { SellerProps } from "@/types/seller"
 
-export default {}
 const LIMIT = 10
 
 export const OrderReturnRequests = ({
@@ -13,11 +14,20 @@ export const OrderReturnRequests = ({
   currentReturn,
   returnReasons,
 }: {
-  returns: any[]
-  user: any
+  returns: Array<{
+    id: string
+    status: string
+    line_items: Array<{
+      line_item_id: string
+      reason_id?: string
+      created_at: string
+    }>
+    order: HttpTypes.StoreOrder & { seller: SellerProps }
+  }>
+  user: HttpTypes.StoreCustomer | null
   page: string
   currentReturn: string
-  returnReasons: any[]
+  returnReasons: HttpTypes.StoreReturnReason[]
 }) => {
   const pages = Math.ceil(returns.length / LIMIT)
   const currentPage = +page || 1

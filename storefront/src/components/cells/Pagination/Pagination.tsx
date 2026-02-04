@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import { PaginationButton } from "@/components/atoms"
 import { CollapseIcon, MeatballsMenuIcon } from "@/icons"

@@ -1,4 +1,3 @@
-export default {}
 "use server"
 
 import { sdk } from "../config"
@@ -61,6 +60,8 @@ export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
   return updateRes
 }
 
+type ActionResult = { success: boolean; error: string | null }
+
 export async function signup(formData: FormData) {
   const password = formData.get("password") as string
   const customerForm = {
@@ -101,8 +102,8 @@ export async function signup(formData: FormData) {
     await transferCart()
 
     return createdCustomer
-  } catch (error: any) {
-    return error.toString()
+  } catch (error) {
+    return error instanceof Error ? error.toString() : String(error)
   }
 }
 
@@ -118,14 +119,14 @@ export async function login(formData: FormData) {
         const customerCacheTag = await getCacheTag("customers")
         revalidateTag(customerCacheTag)
       })
-  } catch (error: any) {
-    return error.toString()
+  } catch (error) {
+    return error instanceof Error ? error.toString() : String(error)
   }
 
   try {
     await transferCart()
-  } catch (error: any) {
-    return error.toString()
+  } catch (error) {
+    return error instanceof Error ? error.toString() : String(error)
   }
 }
 
@@ -159,7 +160,9 @@ export async function transferCart() {
   revalidateTag(cartCacheTag)
 }
 
-export const addCustomerAddress = async (formData: FormData): Promise<any> => {
+export const addCustomerAddress = async (
+  formData: FormData
+): Promise<ActionResult> => {
   const address = {
     address_name: formData.get("address_name") as string,
     first_name: formData.get("first_name") as string,
@@ -181,7 +184,7 @@ export const addCustomerAddress = async (formData: FormData): Promise<any> => {
 
   return sdk.store.customer
     .createAddress(address, {}, headers)
-    .then(async ({ customer }) => {
+    .then(async () => {
       const customerCacheTag = await getCacheTag("customers")
       revalidateTag(customerCacheTag)
       return { success: true, error: null }
@@ -193,12 +196,12 @@ export const addCustomerAddress = async (formData: FormData): Promise<any> => {
 
 export const deleteCustomerAddress = async (
   addressId: string
-): Promise<void> => {
+): Promise<ActionResult> => {
   const headers = {
     ...(await getAuthHeaders()),
   }
 
-  await sdk.store.customer
+  return sdk.store.customer
     .deleteAddress(addressId, headers)
     .then(async () => {
       const customerCacheTag = await getCacheTag("customers")
@@ -212,7 +215,7 @@ export const deleteCustomerAddress = async (
 
 export const updateCustomerAddress = async (
   formData: FormData
-): Promise<any> => {
+): Promise<ActionResult> => {
   const addressId = formData.get("addressId") as string
 
   if (!addressId) {
@@ -257,7 +260,7 @@ export const updateCustomerAddress = async (
 export const updateCustomerPassword = async (
   password: string,
   token: string
-): Promise<any> => {
+): Promise<ActionResult> => {
   const res = await fetch(
     `${process.env.MEDUSA_BACKEND_URL}/auth/customer/emailpass/update`,
     {
@@ -275,7 +278,7 @@ export const updateCustomerPassword = async (
       revalidateTag(customerCacheTag)
       return { success: true, error: null }
     })
-    .catch((err: any) => {
+    .catch((err) => {
       return { success: false, error: err.toString() }
     })
 
@@ -290,7 +293,7 @@ export const sendResetPasswordEmail = async (email: string) => {
     .then(() => {
       return { success: true, error: null }
     })
-    .catch((err: any) => {
+    .catch((err) => {
       return { success: false, error: err.toString() }
     })
 

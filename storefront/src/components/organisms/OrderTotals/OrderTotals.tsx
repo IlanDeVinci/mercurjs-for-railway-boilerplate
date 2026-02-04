@@ -1,8 +1,15 @@
 import { Card, Divider } from "@/components/atoms"
 import { convertToLocale } from "@/lib/helpers/money"
 
-export default {}
-export const OrderTotals = ({ orderSet }: { orderSet: any }) => {
+type OrderSetLike = {
+  shipping_total: number
+  total: number
+  payment_collection: {
+    currency_code: string
+  }
+}
+
+export const OrderTotals = ({ orderSet }: { orderSet: OrderSetLike }) => {
   const delivery = orderSet.shipping_total
   const subtotal = orderSet.total - delivery
   const total = orderSet.total

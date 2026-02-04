@@ -1,6 +1,11 @@
 import { isEqual, pick } from "lodash"
 
-export default function compareAddresses(address1: any, address2: any) {
+type AddressLike = Record<string, unknown>
+
+export default function compareAddresses(
+  address1: AddressLike,
+  address2: AddressLike
+) {
   return isEqual(
     pick(address1, [
       "first_name",

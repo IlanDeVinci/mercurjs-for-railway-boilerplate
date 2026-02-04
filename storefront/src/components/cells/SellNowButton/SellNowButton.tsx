@@ -2,7 +2,6 @@ import { Button } from "@/components/atoms"
 import { ArrowRightIcon } from "@/icons"
 import Link from "next/link"
 
-export default {}
 export const SellNowButton = () => {
   return (
     <Link

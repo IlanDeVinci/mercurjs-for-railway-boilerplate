@@ -25,7 +25,6 @@ import { ReviewsToWrite } from "./Reviews/ReviewsToWrite"
 import { ReviewsWritten } from "./Reviews/ReviewsWritten"
 import { CartEmpty } from "./CartEmpty/CartEmpty"
 
-export default {}
 export {
   ProductCard,
   BrandCard,

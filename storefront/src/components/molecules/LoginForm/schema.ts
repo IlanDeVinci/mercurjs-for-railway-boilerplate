@@ -1,6 +1,5 @@
 import { z } from "zod"
 
-export default {}
 export const loginFormSchema = z.object({
   email: z.string().nonempty("Please enter email").email("Invalid email"),
   password: z.string().nonempty("Please enter password"),

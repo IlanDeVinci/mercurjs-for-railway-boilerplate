@@ -11,8 +11,9 @@ import { ChevronUpDown } from "@medusajs/icons"
 
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { HttpTypes } from "@medusajs/types"
+import { SellerProps } from "@/types/seller"
 
-export default {}
 export const ReturnItemsTab = ({
   order,
   selectedItems,
@@ -20,10 +21,13 @@ export const ReturnItemsTab = ({
   returnReasons,
   error,
 }: {
-  order: any
-  selectedItems: any[]
-  handleSelectItem: (item: any, reason_id: string) => void
-  returnReasons: any[]
+  order: HttpTypes.StoreOrder & { seller: SellerProps }
+  selectedItems: Array<{ line_item_id: string; reason_id?: string }>
+  handleSelectItem: (
+    item: HttpTypes.StoreOrderLineItem,
+    reason_id: string
+  ) => void
+  returnReasons: HttpTypes.StoreReturnReason[]
   error: boolean
 }) => {
   return (
@@ -35,7 +39,7 @@ export const ReturnItemsTab = ({
       </Card>
       <Card className="flex items-center justify-between p-4">
         <ul className="w-full">
-          {order.items.map((item: any) => (
+          {order.items.map((item) => (
             <li key={item.id} className="md:flex justify-between gap-2 w-full">
               <div className="flex items-center gap-2 md:w-2/3 mb-4 md:mb-0">
                 <Checkbox

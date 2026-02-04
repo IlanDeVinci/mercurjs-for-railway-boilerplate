@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import {
   FieldError,
@@ -63,7 +62,9 @@ const Form: React.FC<Props> = ({ handleClose }) => {
     }
 
     setError("")
-    handleClose && handleClose()
+    if (handleClose) {
+      handleClose()
+    }
   }
 
   return (

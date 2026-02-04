@@ -2,7 +2,6 @@ import { SellerReviewList, SellerScore } from "@/components/molecules"
 import { getSellerByHandle } from "@/lib/data/seller"
 import { SellerProps } from "@/types/seller"
 
-export default {}
 export const SellerReviewTab = async ({
   seller_handle,
 }: {

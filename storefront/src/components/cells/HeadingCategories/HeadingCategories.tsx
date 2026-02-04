@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 import { cn } from "@/lib/utils"

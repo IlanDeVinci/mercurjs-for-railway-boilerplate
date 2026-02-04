@@ -4,7 +4,6 @@ import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedL
 import { listCategories } from "@/lib/data/categories"
 import { CategoryCard } from "../CategoryCard/CategoryCard"
 
-export default {}
 export const EmptyCart = async () => {
   const { categories } = await listCategories()
 

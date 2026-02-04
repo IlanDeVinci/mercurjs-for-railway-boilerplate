@@ -1,11 +1,6 @@
-import OrderDetails from "@/components/organisms/OrderDefails/OrderDetails"
-import OrderShipping from "@/components/organisms/OrderDefails/OrderShipping"
-import OrderTotals from "@/components/organisms/OrderDefails/OrderTotals"
-import OrderItems from "@/components/organisms/OrderItems/OrderItems"
 import { HttpTypes } from "@medusajs/types"
 import { Heading, Text } from "@medusajs/ui"
 
-export default {}
 export const OrderConfirmedSection = ({
   order,
 }: {

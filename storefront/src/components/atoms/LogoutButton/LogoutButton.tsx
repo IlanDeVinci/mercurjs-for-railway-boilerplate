@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import { signout } from "@/lib/data/customer"
 import { cn } from "@/lib/utils"

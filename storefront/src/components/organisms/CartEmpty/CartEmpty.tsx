@@ -1,7 +1,6 @@
 import { Button } from "@/components/atoms"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 
-export default {}
 export function CartEmpty() {
   return (
     <div className="col-span-12 pt-4 py-6 flex justify-center">

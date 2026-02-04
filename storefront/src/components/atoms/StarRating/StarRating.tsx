@@ -1,7 +1,6 @@
 import { StarIcon } from "@/icons"
 import tailwindConfig from "../../../../tailwind.config"
 
-export default {}
 export const StarRating = ({
   rate,
   starSize = 20,

@@ -1,16 +1,17 @@
 import { Card, Checkbox } from "@/components/atoms"
+import { HttpTypes } from "@medusajs/types"
+import { SellerProps } from "@/types/seller"
 
-export default {}
 export const ReturnMethodsTab = ({
   shippingMethods,
   handleSetReturnMethod,
   returnMethod,
   seller,
 }: {
-  shippingMethods: any
-  handleSetReturnMethod: (method: any) => void
-  returnMethod: string
-  seller: any
+  shippingMethods: HttpTypes.StoreShippingOption[]
+  handleSetReturnMethod: (methodId: string) => void
+  returnMethod: string | null
+  seller: SellerProps
 }) => {
   const noShippingMethods = !shippingMethods?.length || false
 
@@ -27,7 +28,7 @@ export const ReturnMethodsTab = ({
             </div>
           ) : (
             <ul>
-              {shippingMethods.map((method: any) => (
+              {shippingMethods.map((method) => (
                 <li
                   key={method.id}
                   onClick={() => handleSetReturnMethod(method.id)}

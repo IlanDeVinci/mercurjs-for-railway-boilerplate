@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 
-export default {}
 interface NavigationItemProps extends React.ComponentPropsWithoutRef<"a"> {
   active?: boolean
 }

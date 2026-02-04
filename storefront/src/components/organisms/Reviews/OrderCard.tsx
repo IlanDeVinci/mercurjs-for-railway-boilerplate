@@ -3,7 +3,6 @@ import { Order } from "@/lib/data/reviews"
 import { format } from "date-fns"
 import Image from "next/image"
 
-export default {}
 export const OrderCard = ({
   order,
   showForm,

@@ -1,2 +1,1 @@
-export default {}
-declare module '*.lodash';
+declare module "*.lodash"

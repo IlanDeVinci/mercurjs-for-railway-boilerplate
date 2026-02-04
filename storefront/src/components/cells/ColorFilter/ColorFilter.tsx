@@ -1,82 +1,74 @@
-export default {}
-'use client';
+"use client"
 
-import {
-  Accordion,
-  FilterCheckboxOption,
-} from '@/components/molecules';
-import { cn } from '@/lib/utils';
-import useFilters from '@/hooks/useFilters';
+import { Accordion, FilterCheckboxOption } from "@/components/molecules"
+import { cn } from "@/lib/utils"
+import useFilters from "@/hooks/useFilters"
 
 const colorFilters = [
   {
-    label: 'Black',
+    label: "Black",
     amount: 40,
-    color: 'bg-[rgba(9,9,9,1)]',
+    color: "bg-[rgba(9,9,9,1)]",
   },
   {
-    label: 'Grey',
+    label: "Grey",
     amount: 78,
-    color: 'bg-[rgba(82,82,82,1)]',
+    color: "bg-[rgba(82,82,82,1)]",
   },
   {
-    label: 'White',
+    label: "White",
     amount: 7,
-    color: 'bg-[rgba(255,255,255,1)]',
+    color: "bg-[rgba(255,255,255,1)]",
   },
   {
-    label: 'Yellow',
+    label: "Yellow",
     amount: 7,
-    color: 'bg-[rgba(255,191,58,1)]',
+    color: "bg-[rgba(255,191,58,1)]",
   },
   {
-    label: 'Red',
+    label: "Red",
     amount: 16,
-    color: 'bg-[rgba(217,45,32,1)]',
+    color: "bg-[rgba(217,45,32,1)]",
   },
   {
-    label: 'Orange',
+    label: "Orange",
     amount: 0,
-    color: 'bg-[rgba(247,144,9,1)]',
+    color: "bg-[rgba(247,144,9,1)]",
   },
   {
-    label: 'Blue',
+    label: "Blue",
     amount: 46,
-    color: 'bg-[rgba(77,160,255,1)]',
+    color: "bg-[rgba(77,160,255,1)]",
   },
   {
-    label: 'Navi',
+    label: "Navi",
     amount: 87,
-    color: 'bg-[rgba(0,67,143,1)]',
+    color: "bg-[rgba(0,67,143,1)]",
   },
   {
-    label: 'Green',
+    label: "Green",
     amount: 32,
-    color: 'bg-[rgba(23,163,74,1)]',
+    color: "bg-[rgba(23,163,74,1)]",
   },
   {
-    label: 'Multi',
+    label: "Multi",
     amount: 6,
-    color: 'multi-gradient',
+    color: "multi-gradient",
   },
-];
+]
 
 export const ColorFilter = () => {
-  const { updateFilters, isFilterActive } =
-    useFilters('color');
+  const { updateFilters, isFilterActive } = useFilters("color")
 
   const selectHandler = (option: string) => {
-    updateFilters(option);
-  };
+    updateFilters(option)
+  }
 
   return (
-    <Accordion heading='Color'>
-      <ul className='px-4'>
+    <Accordion heading="Color">
+      <ul className="px-4">
         {colorFilters.map(({ label, amount, color }) => (
-          <li
-            key={label}
-            className='mb-4 flex items-center justify-between'
-          >
+          <li key={label} className="mb-4 flex items-center justify-between">
             <FilterCheckboxOption
               checked={isFilterActive(label)}
               disabled={Boolean(!amount)}
@@ -86,14 +78,14 @@ export const ColorFilter = () => {
             />
             <div
               className={cn(
-                'w-5 h-5 border border-primary rounded-xs',
+                "w-5 h-5 border border-primary rounded-xs",
                 color,
-                Boolean(!amount) && 'opacity-30'
+                Boolean(!amount) && "opacity-30"
               )}
             />
           </li>
         ))}
       </ul>
     </Accordion>
-  );
-};
+  )
+}

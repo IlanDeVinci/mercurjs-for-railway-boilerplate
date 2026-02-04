@@ -1,4 +1,3 @@
-export default {}
 "use server"
 
 import { fetchQuery, sdk } from "../config"
@@ -285,9 +284,8 @@ export async function applyPromotions(codes: string[]) {
     .then(async ({ cart }) => {
       const cartCacheTag = await getCacheTag("carts")
       revalidateTag(cartCacheTag)
-      // @ts-ignore
-      const applied = cart.promotions?.some((promotion: any) =>
-        codes.includes(promotion.code)
+      const applied = cart.promotions?.some((promotion) =>
+        codes.includes(promotion.code ?? "")
       )
       return applied
     })
@@ -362,7 +360,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
       throw new Error("No existing cart found when setting addresses")
     }
 
-    const data = {
+    const data: HttpTypes.StoreUpdateCart = {
       shipping_address: {
         first_name: formData.get("shipping_address.first_name"),
         last_name: formData.get("shipping_address.last_name"),
@@ -376,7 +374,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
         phone: formData.get("shipping_address.phone"),
       },
       email: formData.get("email"),
-    } as any
+    }
 
     // const sameAsBilling = formData.get("same_as_billing")
     // if (sameAsBilling === "on") data.billing_address = data.shipping_address
@@ -398,8 +396,8 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
 
     await updateCart(data)
     await revalidatePath("/cart")
-  } catch (e: any) {
-    return e.message
+  } catch (e) {
+    return e instanceof Error ? e.message : "Unknown error"
   }
 }
 
@@ -493,9 +491,12 @@ export async function updateRegionWithValidation(
 
     try {
       await updateCart({ region_id: region.id })
-    } catch (error: any) {
+    } catch (error) {
       // Check if error is about variants not having prices
-      if (!error?.message?.includes("do not have a price")) {
+      if (
+        !(error instanceof Error) ||
+        !error.message.includes("do not have a price")
+      ) {
         // Re-throw if it's a different error
         throw error
       }
@@ -531,7 +532,7 @@ export async function updateRegionWithValidation(
             try {
               await sdk.store.cart.deleteLineItem(cart.id, item.id, headers)
               removedItems.push(item.product_title || "Unknown product")
-            } catch (deleteError) {
+            } catch {
               // Silent failure - item removal failed but continue
             }
           }
@@ -541,7 +542,7 @@ export async function updateRegionWithValidation(
         if (removedItems.length > 0) {
           await updateCart({ region_id: region.id })
         }
-      } catch (fetchError) {
+      } catch {
         throw new Error("Failed to handle incompatible cart items")
       }
     }

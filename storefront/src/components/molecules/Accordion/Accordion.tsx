@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import { Card } from "@/components/atoms"
 import { CollapseIcon } from "@/icons"

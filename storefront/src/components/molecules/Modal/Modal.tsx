@@ -1,6 +1,5 @@
 import { CloseIcon } from "@/icons"
 
-export default {}
 export const Modal = ({
   children,
   heading,

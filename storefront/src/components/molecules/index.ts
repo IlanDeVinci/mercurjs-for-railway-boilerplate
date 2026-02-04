@@ -33,7 +33,6 @@ import { AddressForm } from "./AddressForm/AddressForm"
 import { ReviewForm } from "./ReviewForm/ReviewForm"
 import { ProfileDetails } from "./ProfileDetails/ProfileDetails"
 
-export default {}
 export {
   PrimeCategoryNavbar,
   CategoryNavbar,

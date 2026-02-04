@@ -18,25 +18,37 @@ export default async function UserPage({
 
   const orders = await listOrders()
 
+  type OrderWithSet = (typeof orders)[number] & {
+    order_set: {
+      id: string
+      created_at: string
+      display_id: string
+    }
+  }
+
   const { page } = await searchParams
 
   const pages = Math.ceil(orders.length / LIMIT)
   const currentPage = +page || 1
   const offset = (+currentPage - 1) * LIMIT
 
-  const orderSetsGrouped = orders.reduce((acc, order) => {
-    const orderSetId = (order as any).order_set.id
-    if (!acc[orderSetId]) {
-      acc[orderSetId] = []
-    }
-    acc[orderSetId].push(order)
-    return acc
-  }, {} as Record<string, typeof orders>)
+  const orderSetsGrouped = orders.reduce(
+    (acc, order) => {
+      const orderWithSet = order as OrderWithSet
+      const orderSetId = orderWithSet.order_set.id
+      if (!acc[orderSetId]) {
+        acc[orderSetId] = []
+      }
+      acc[orderSetId].push(orderWithSet)
+      return acc
+    },
+    {} as Record<string, OrderWithSet[]>
+  )
 
   const orderSets = Object.entries(orderSetsGrouped).map(
     ([orderSetId, orders]) => {
       const firstOrder = orders[0]
-      const orderSet = (firstOrder as any).order_set
+      const orderSet = firstOrder.order_set
 
       return {
         id: orderSetId,

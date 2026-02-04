@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
 import { getAuthHeaders } from "@/lib/data/cookies"
 
-export default {}
 export async function POST(req: Request) {
   const authHeaders = await getAuthHeaders()
   const authHeader = authHeaders?.authorization

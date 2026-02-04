@@ -2,7 +2,6 @@ import { HttpTypes } from "@medusajs/types"
 import { Metadata } from "next"
 import { headers } from "next/headers"
 
-export default {}
 export const generateProductMetadata = async (
   product: HttpTypes.StoreProduct
 ): Promise<Metadata> => {

@@ -30,6 +30,7 @@ type CartItem = {
 
 export type StoreCardShippingMethod = HttpTypes.StoreCartShippingOption & {
   seller_id?: string
+  seller_name?: string
   service_zone?: {
     fulfillment_set: {
       type: string
@@ -44,7 +45,7 @@ type ShippingProps = {
   availableShippingMethods:
     | (StoreCardShippingMethod &
         {
-          rules: any
+          rules?: Array<{ attribute?: string; value?: string }>
           seller_id: string
           price_type: string
           id: string
@@ -62,10 +63,6 @@ const CartShippingMethodsSection: React.FC<ShippingProps> = ({
     Record<string, number>
   >({})
   const [error, setError] = useState<string | null>(null)
-  const [missingModal, setMissingModal] = useState(false)
-  const [missingShippingSellers, setMissingShippingSellers] = useState<
-    string[]
-  >([])
 
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -75,8 +72,7 @@ const CartShippingMethodsSection: React.FC<ShippingProps> = ({
 
   const _shippingMethods = availableShippingMethods?.filter(
     (sm) =>
-      sm.rules?.find((rule: any) => rule.attribute === "is_return")?.value !==
-      "true"
+      sm.rules?.find((rule) => rule.attribute === "is_return")?.value !== "true"
   )
 
   useEffect(() => {
@@ -87,17 +83,7 @@ const CartShippingMethodsSection: React.FC<ShippingProps> = ({
       }
     })
 
-    const sellerMethods = _shippingMethods?.map(({ seller_id }) => seller_id)
-
-    const missingSellerIds = [...set].filter(
-      (sellerId) => !sellerMethods?.includes(sellerId)
-    )
-
-    setMissingShippingSellers(Array.from(missingSellerIds))
-
-    if (missingSellerIds.length > 0 && !cart.shipping_methods?.length) {
-      setMissingModal(true)
-    }
+    // Missing sellers info available if needed
   }, [cart, _shippingMethods])
 
   useEffect(() => {
@@ -111,7 +97,10 @@ const CartShippingMethodsSection: React.FC<ShippingProps> = ({
           const pricesMap: Record<string, number> = {}
           res
             .filter((r) => r.status === "fulfilled")
-            .forEach((p) => (pricesMap[p.value?.id || ""] = p.value?.amount!))
+            .forEach((p) => {
+              const amount = p.value?.amount ?? 0
+              pricesMap[p.value?.id || ""] = amount
+            })
 
           setCalculatedPricesMap(pricesMap)
           setIsLoadingPrices(false)
@@ -139,11 +128,12 @@ const CartShippingMethodsSection: React.FC<ShippingProps> = ({
       if (!res.ok) {
         return setError(res.error?.message)
       }
-    } catch (error: any) {
-      setError(
-        error?.message?.replace("Error setting up the request: ", "") ||
-          "An error occurred"
-      )
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message.replace("Error setting up the request: ", "")
+          : "An error occurred"
+      setError(message)
     } finally {
       setIsLoadingPrices(false)
     }
@@ -153,35 +143,33 @@ const CartShippingMethodsSection: React.FC<ShippingProps> = ({
     setError(null)
   }, [isOpen])
 
-  const groupedBySellerId = _shippingMethods?.reduce((acc: any, method) => {
-    const sellerId = method.seller_id!
+  const groupedBySellerId =
+    _shippingMethods?.reduce<Record<string, StoreCardShippingMethod[]>>(
+      (acc, method) => {
+        const sellerId = method.seller_id ?? "unknown"
 
-    if (!acc[sellerId]) {
-      acc[sellerId] = []
-    }
+        if (!acc[sellerId]) {
+          acc[sellerId] = []
+        }
 
-    const amount = Number(
-      method.price_type === "flat"
-        ? method.amount
-        : calculatedPricesMap[method.id]
-    )
+        const amount = Number(
+          method.price_type === "flat"
+            ? method.amount
+            : calculatedPricesMap[method.id]
+        )
 
-    if (!isNaN(amount)) {
-      acc[sellerId]?.push(method)
-    }
+        if (!isNaN(amount)) {
+          acc[sellerId]?.push(method)
+        }
 
-    return acc
-  }, {})
+        return acc
+      },
+      {}
+    ) ?? {}
 
   const handleEdit = () => {
     router.replace(pathname + "?step=delivery")
   }
-
-  const missingSellers = cart.items
-    ?.filter((item) =>
-      missingShippingSellers.includes(item.product?.seller?.id!)
-    )
-    .map((item) => item.product?.seller?.name)
 
   const isEditEnabled = !isOpen && !!cart?.shipping_methods?.length
 
@@ -277,37 +265,32 @@ const CartShippingMethodsSection: React.FC<ShippingProps> = ({
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Listbox.Options
-                              className="absolute z-20 w-full overflow-auto text-small-regular bg-white border rounded-lg border-top-0 max-h-60 focus:outline-none sm:text-sm"
-                              data-testid="shipping-address-options"
-                            >
-                              {groupedBySellerId[key].map((option: any) => {
-                                return (
-                                  <Listbox.Option
-                                    className="cursor-pointer select-none relative pl-6 pr-10 hover:bg-gray-50 py-4 border-b"
-                                    value={option.id}
-                                    key={option.id}
-                                  >
-                                    {option.name}
-                                    {" - "}
-                                    {option.price_type === "flat" ? (
-                                      convertToLocale({
-                                        amount: option.amount!,
-                                        currency_code: cart?.currency_code,
-                                      })
-                                    ) : calculatedPricesMap[option.id] ? (
-                                      convertToLocale({
-                                        amount: calculatedPricesMap[option.id],
-                                        currency_code: cart?.currency_code,
-                                      })
-                                    ) : isLoadingPrices ? (
-                                      <Loader />
-                                    ) : (
-                                      "-"
-                                    )}
-                                  </Listbox.Option>
-                                )
-                              })}
+                            <Listbox.Options className="absolute z-20 w-full overflow-auto text-small-regular bg-white border rounded-lg border-top-0 max-h-60 focus:outline-none sm:text-sm">
+                              {groupedBySellerId[key].map((option) => (
+                                <Listbox.Option
+                                  className="cursor-pointer select-none relative pl-6 pr-10 hover:bg-gray-50 py-4 border-b"
+                                  value={option.id}
+                                  key={option.id}
+                                >
+                                  {option.name}
+                                  {" - "}
+                                  {option.price_type === "flat" ? (
+                                    convertToLocale({
+                                      amount: option.amount ?? 0,
+                                      currency_code: cart?.currency_code,
+                                    })
+                                  ) : calculatedPricesMap[option.id] ? (
+                                    convertToLocale({
+                                      amount: calculatedPricesMap[option.id],
+                                      currency_code: cart?.currency_code,
+                                    })
+                                  ) : isLoadingPrices ? (
+                                    <Loader />
+                                  ) : (
+                                    "-"
+                                  )}
+                                </Listbox.Option>
+                              ))}
                             </Listbox.Options>
                           </Transition>
                         </div>
@@ -357,7 +340,7 @@ const CartShippingMethodsSection: React.FC<ShippingProps> = ({
                     <Text className="txt-medium text-ui-fg-subtle">
                       {method.name}{" "}
                       {convertToLocale({
-                        amount: method.amount!,
+                        amount: method.amount ?? 0,
                         currency_code: cart?.currency_code,
                       })}
                     </Text>

@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { PropsWithChildren, useEffect, useState } from "react"

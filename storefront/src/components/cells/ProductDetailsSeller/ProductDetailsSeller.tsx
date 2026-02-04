@@ -3,7 +3,6 @@ import { CollapseIcon } from "@/icons"
 import { SellerInfo } from "@/components/molecules"
 import { SellerProps } from "@/types/seller"
 
-export default {}
 export const ProductDetailsSeller = ({ seller }: { seller?: SellerProps }) => {
   if (!seller) return null
 

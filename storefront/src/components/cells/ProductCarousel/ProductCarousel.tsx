@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import useEmblaCarousel from "embla-carousel-react"

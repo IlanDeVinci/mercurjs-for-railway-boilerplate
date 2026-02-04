@@ -1,8 +1,8 @@
 import { Button, Card } from "@/components/atoms"
 import { convertToLocale } from "@/lib/helpers/money"
 import Image from "next/image"
+import { HttpTypes } from "@medusajs/types"
 
-export default {}
 export const ReturnSummaryTab = ({
   selectedItems,
   items,
@@ -12,12 +12,12 @@ export const ReturnSummaryTab = ({
   returnMethod,
   handleSubmit,
 }: {
-  selectedItems: any[]
-  items: any[]
+  selectedItems: Array<{ line_item_id: string }>
+  items: HttpTypes.StoreOrderLineItem[]
   currency_code: string
   handleTabChange: (tab: number) => void
   tab: number
-  returnMethod: any
+  returnMethod: string | null
   handleSubmit: () => void
 }) => {
   const selected = items.filter((item) =>
@@ -91,8 +91,8 @@ export const ReturnSummaryTab = ({
               ? "Continue"
               : "Select Items"
             : !returnMethod
-            ? "Select return method"
-            : "Request return"}
+              ? "Select return method"
+              : "Request return"}
         </Button>
       </Card>
     </div>

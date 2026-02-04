@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Button } from "@/components/atoms"
@@ -50,8 +49,13 @@ export const WishlistButton = ({
     try {
       setIsWishlistAdding(true)
 
+      const wishlistId = wishlist?.[0]?.id
+      if (!wishlistId) {
+        return
+      }
+
       await removeWishlistItem({
-        wishlist_id: wishlist?.[0].id!,
+        wishlist_id: wishlistId,
         product_id: productId,
       })
     } catch (error) {

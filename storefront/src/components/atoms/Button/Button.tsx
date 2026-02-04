@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils"
 
 import Spinner from "@/icons/spinner"
 
-export default {}
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "filled" | "tonal" | "text" | "destructive"
   size?: "small" | "large"

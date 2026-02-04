@@ -1,6 +1,5 @@
 import { z } from "zod"
 
-export default {}
 export const reviewSchema = z.object({
   sellerId: z.string(),
   rating: z.number().min(1, "Please rate this seller").max(5),

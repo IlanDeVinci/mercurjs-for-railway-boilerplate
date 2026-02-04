@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Button } from "@/components/atoms"
@@ -12,20 +11,27 @@ import { ReturnMethodsTab } from "./ReturnMethodsTab"
 import { StepProgressBar } from "@/components/cells/StepProgressBar/StepProgressBar"
 import { createReturnRequest } from "@/lib/data/orders"
 import { useRouter } from "next/navigation"
+import { HttpTypes } from "@medusajs/types"
+import { SellerProps } from "@/types/seller"
 
 export const OrderReturnSection = ({
   order,
   returnReasons,
   shippingMethods,
 }: {
-  order: any
-  returnReasons: any[]
-  shippingMethods: any[]
+  order: HttpTypes.StoreOrder & {
+    seller: SellerProps
+    order_set: { id: string }
+  }
+  returnReasons: HttpTypes.StoreReturnReason[]
+  shippingMethods: HttpTypes.StoreShippingOption[]
 }) => {
   const [tab, setTab] = useState(0)
-  const [selectedItems, setSelectedItems] = useState<any[]>([])
+  const [selectedItems, setSelectedItems] = useState<
+    Array<{ line_item_id: string; quantity: number; reason_id?: string }>
+  >([])
   const [error, setError] = useState<boolean>(false)
-  const [returnMethod, setReturnMethod] = useState<any>(null)
+  const [returnMethod, setReturnMethod] = useState<string | null>(null)
   const router = useRouter()
 
   const handleTabChange = (tab: number) => {
@@ -37,11 +43,14 @@ export const OrderReturnSection = ({
     }
   }
 
-  const handleSetReturnMethod = (method: any) => {
-    setReturnMethod(method)
+  const handleSetReturnMethod = (methodId: string) => {
+    setReturnMethod(methodId)
   }
 
-  const handleSelectItem = (item: any, reason_id: string = "") => {
+  const handleSelectItem = (
+    item: HttpTypes.StoreOrderLineItem,
+    reason_id: string = ""
+  ) => {
     setError(false)
     if (!reason_id && selectedItems.some((i) => i.line_item_id === item.id)) {
       setSelectedItems(selectedItems.filter((i) => i.line_item_id !== item.id))

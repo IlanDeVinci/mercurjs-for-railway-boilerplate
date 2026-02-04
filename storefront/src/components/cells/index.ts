@@ -31,7 +31,6 @@ import { OrderTimeline } from "./OrderTimeline/OrderTimeline"
 import { WishlistItem } from "./WishlistItem/WishlistItem"
 import { ProductAdditionalAttributes } from "./ProductAdditionalAttributes/ProductAdditionalAttributes"
 
-export default {}
 export {
   Navbar,
   Carousel,

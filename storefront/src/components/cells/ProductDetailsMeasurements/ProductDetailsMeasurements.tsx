@@ -1,26 +1,19 @@
 import {
   ProductPageAccordion,
   ProdutMeasurementRow,
-} from '@/components/molecules';
-import { SingleProductMeasurement } from '@/types/product';
+} from "@/components/molecules"
+import { SingleProductMeasurement } from "@/types/product"
 
-export default {}
 export const ProductDetailsMeasurements = ({
   measurements,
 }: {
-  measurements: SingleProductMeasurement[];
+  measurements: SingleProductMeasurement[]
 }) => {
   return (
-    <ProductPageAccordion
-      heading='Measurements'
-      defaultOpen={false}
-    >
+    <ProductPageAccordion heading="Measurements" defaultOpen={false}>
       {measurements.map((item) => (
-        <ProdutMeasurementRow
-          key={item.label}
-          measurement={item}
-        />
+        <ProdutMeasurementRow key={item.label} measurement={item} />
       ))}
     </ProductPageAccordion>
-  );
-};
+  )
+}

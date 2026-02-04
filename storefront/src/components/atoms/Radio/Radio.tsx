@@ -1,4 +1,3 @@
-export default {}
 export const Radio = ({
   checked,
   "data-testid": dataTestId,

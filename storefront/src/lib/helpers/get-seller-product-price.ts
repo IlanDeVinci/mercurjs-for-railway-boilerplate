@@ -1,7 +1,9 @@
+import { HttpTypes } from "@medusajs/types"
 import { convertToLocale } from "./money"
 
-export default {}
-export const getPricesForVariant = (variant: any) => {
+type StoreVariant = HttpTypes.StoreProductVariant
+
+export const getPricesForVariant = (variant: StoreVariant) => {
   if (!variant?.prices[0]?.amount) {
     return null
   }
@@ -24,7 +26,7 @@ export function getSellerProductPrice({
   product,
   variantId,
 }: {
-  product: any
+  product: HttpTypes.StoreProduct
   variantId?: string
 }) {
   if (!product || !product.id) {
@@ -36,9 +38,9 @@ export function getSellerProductPrice({
       return null
     }
 
-    const cheapestVariant: any = product.variants
-      .filter((v: any) => !!v.prices?.[0])
-      .sort((a: any, b: any) => {
+    const cheapestVariant = product.variants
+      .filter((v) => !!v.prices?.[0])
+      .sort((a, b) => {
         return a.prices?.[0].amount - b.prices?.[0].amount
       })[0]
 
@@ -50,8 +52,8 @@ export function getSellerProductPrice({
       return null
     }
 
-    const variant: any = product.variants?.find(
-      (v: any) => v.id === variantId || v.sku === variantId
+    const variant = product.variants?.find(
+      (v) => v.id === variantId || v.sku === variantId
     )
 
     if (!variant) {

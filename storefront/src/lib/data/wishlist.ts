@@ -1,4 +1,3 @@
-export default {}
 "use server"
 import { Wishlist } from "@/types/wishlist"
 import { sdk } from "../config"
@@ -38,17 +37,14 @@ export const addWishlistItem = async ({
       .NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY as string,
   }
 
-  const response = await fetch(
-    `${process.env.MEDUSA_BACKEND_URL}/store/wishlist`,
-    {
-      headers,
-      method: "POST",
-      body: JSON.stringify({
-        reference,
-        reference_id,
-      }),
-    }
-  ).then(() => {
+  await fetch(`${process.env.MEDUSA_BACKEND_URL}/store/wishlist`, {
+    headers,
+    method: "POST",
+    body: JSON.stringify({
+      reference,
+      reference_id,
+    }),
+  }).then(() => {
     revalidatePath("/wishlist")
   })
 }
@@ -67,7 +63,7 @@ export const removeWishlistItem = async ({
       .NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY as string,
   }
 
-  const response = await fetch(
+  await fetch(
     `${process.env.MEDUSA_BACKEND_URL}/store/wishlist/${wishlist_id}/product/${product_id}`,
     {
       headers,

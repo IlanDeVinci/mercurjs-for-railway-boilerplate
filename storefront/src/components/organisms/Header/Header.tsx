@@ -2,7 +2,7 @@ import Image from "next/image"
 import { HttpTypes } from "@medusajs/types"
 
 import { CartDropdown, MobileNavbar, Navbar } from "@/components/cells"
-import { HeartIcon, MessageIcon } from "@/icons"
+import { HeartIcon } from "@/icons"
 import { listCategories } from "@/lib/data/categories"
 import { PARENT_CATEGORIES } from "@/const"
 import { UserDropdown } from "@/components/cells/UserDropdown/UserDropdown"
@@ -16,7 +16,6 @@ import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedL
 import { MessageButton } from "@/components/molecules/MessageButton/MessageButton"
 import { SellNowButton } from "@/components/cells/SellNowButton/SellNowButton"
 
-export default {}
 export const Header = async () => {
   const user = await retrieveCustomer()
   let wishlist: Wishlist[] = []

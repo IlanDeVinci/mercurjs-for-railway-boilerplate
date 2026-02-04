@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Button } from "@/components/atoms"
@@ -26,7 +25,7 @@ export const CartShippingMethodRow = ({
         <Text className="txt-medium text-ui-fg-subtle">
           {method?.name}{" "}
           {convertToLocale({
-            amount: method?.amount!,
+            amount: method?.amount ?? 0,
             currency_code: currency_code,
           })}
         </Text>

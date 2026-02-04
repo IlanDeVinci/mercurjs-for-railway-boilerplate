@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { convertToLocale } from "@/lib/helpers/money"

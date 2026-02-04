@@ -3,7 +3,6 @@ import { listProducts } from "@/lib/data/products"
 import { HomeProductSection } from "../HomeProductSection/HomeProductSection"
 import NotFound from "@/app/not-found"
 
-export default {}
 export const ProductDetailsPage = async ({
   handle,
   locale,

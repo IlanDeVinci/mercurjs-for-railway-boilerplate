@@ -3,7 +3,6 @@ import { SellerAvatar } from "@/components/cells/SellerAvatar/SellerAvatar"
 import { SellerProps } from "@/types/seller"
 import { SellerReview } from "../SellerReview/SellerReview"
 
-export default {}
 export const SellerInfo = ({
   seller,
   header = false,

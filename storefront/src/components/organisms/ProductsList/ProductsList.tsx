@@ -1,7 +1,6 @@
 import { ProductCard } from "../ProductCard/ProductCard"
 import { HttpTypes } from "@medusajs/types"
 
-export default {}
 export const ProductsList = ({
   products,
 }: {

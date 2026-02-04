@@ -1,7 +1,7 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 import { MeiliSearch } from "meilisearch";
-import { toMeiliDoc } from "../../../utils/meili-doc";
+import { toMeiliDoc, type ProductGraph } from "../../../utils/meili-doc";
 
 export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
   const host = process.env.MEILI_HOST;
@@ -65,7 +65,7 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
         pagination: { take, skip },
       });
 
-      const products = (data as any[]) || [];
+      const products = (data as ProductGraph[]) || [];
       if (!products.length) break;
 
       const docs = products.map(toMeiliDoc);
@@ -82,8 +82,9 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
 
     logger.info(`[MEILI] Reindexed ${total} products via admin endpoint`);
     return res.json({ ok: true, indexed: total });
-  } catch (error: any) {
-    logger.warn(`[MEILI] Reindex failed: ${error?.message || String(error)}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    logger.warn(`[MEILI] Reindex failed: ${message}`);
     return res.status(500).json({ message: "Reindex failed" });
   }
 };

@@ -1,4 +1,4 @@
-type ProductGraph = {
+export type ProductGraph = {
   id: string;
   handle?: string;
   title?: string;
@@ -14,7 +14,7 @@ type ProductGraph = {
     id: string;
     title?: string;
     options?: { option?: { title?: string } | null; value?: string }[];
-    metadata?: Record<string, any> | null;
+    metadata?: Record<string, unknown> | null;
   }[];
 };
 
@@ -22,28 +22,41 @@ function uniq(values: (string | undefined | null)[]) {
   return Array.from(new Set(values.filter(Boolean) as string[]));
 }
 
-function getVariantOptionValue(variant: any, optionTitle: string) {
+type VariantGraph = NonNullable<ProductGraph["variants"]>[number];
+
+function getVariantOptionValue(
+  variant: VariantGraph | null | undefined,
+  optionTitle: string,
+) {
   const normalized = optionTitle.toLowerCase();
   const match = (variant?.options || []).find(
-    (o: any) => String(o?.option?.title || "").toLowerCase() === normalized,
+    (o) => String(o?.option?.title || "").toLowerCase() === normalized,
   );
   return match?.value || null;
+}
+
+function getVariantMetadataValue(
+  variant: VariantGraph | null | undefined,
+  key: string,
+) {
+  const value = variant?.metadata?.[key];
+  return typeof value === "string" ? value : null;
 }
 
 export function toMeiliDoc(product: ProductGraph) {
   const variants = product.variants || [];
 
   const variants_color = uniq([
-    ...variants.map((v: any) => getVariantOptionValue(v, "color")),
-    ...variants.map((v: any) => v?.metadata?.color),
+    ...variants.map((v) => getVariantOptionValue(v, "color")),
+    ...variants.map((v) => getVariantMetadataValue(v, "color")),
   ]);
   const variants_size = uniq([
-    ...variants.map((v: any) => getVariantOptionValue(v, "size")),
-    ...variants.map((v: any) => v?.metadata?.size),
+    ...variants.map((v) => getVariantOptionValue(v, "size")),
+    ...variants.map((v) => getVariantMetadataValue(v, "size")),
   ]);
   const variants_condition = uniq([
-    ...variants.map((v: any) => getVariantOptionValue(v, "condition")),
-    ...variants.map((v: any) => v?.metadata?.condition),
+    ...variants.map((v) => getVariantOptionValue(v, "condition")),
+    ...variants.map((v) => getVariantMetadataValue(v, "condition")),
   ]);
 
   return {

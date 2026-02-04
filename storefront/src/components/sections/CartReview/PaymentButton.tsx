@@ -7,8 +7,6 @@ import { HttpTypes } from "@medusajs/types"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
 import React, { useEffect, useState } from "react"
 import { Button } from "@/components/atoms"
-import { orderErrorFormatter } from "@/lib/helpers/order-error-formatter"
-import { toast } from "@/lib/helpers/toast"
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
@@ -69,11 +67,10 @@ const StripePaymentButton = ({
       if (!res.ok) {
         setErrorMessage(res.error?.message)
       }
-    } catch (error: any) {
-      if (error?.message !== "NEXT_REDIRECT") {
-        setErrorMessage(
-          error?.message?.replace("Error setting up the request: ", "")
-        )
+    } catch (error) {
+      const message = error instanceof Error ? error.message : ""
+      if (message !== "NEXT_REDIRECT") {
+        setErrorMessage(message.replace("Error setting up the request: ", ""))
       }
     } finally {
       setSubmitting(false)
@@ -89,7 +86,7 @@ const StripePaymentButton = ({
   )
 
   useEffect(() => {
-    //@ts-ignore
+    //@ts-expect-error Stripe element typing mismatch
     setDisabled(!card?._complete)
   }, [card, stripe, elements, cart])
 
@@ -156,6 +153,7 @@ const StripePaymentButton = ({
         onClick={handlePayment}
         loading={submitting}
         className="w-full"
+        data-testid={dataTestId}
       >
         Place order
       </Button>
@@ -177,11 +175,10 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
       if (!res.ok) {
         setErrorMessage(res.error?.message)
       }
-    } catch (error: any) {
-      if (error?.message !== "NEXT_REDIRECT") {
-        setErrorMessage(
-          error?.message?.replace("Error setting up the request: ", "")
-        )
+    } catch (error) {
+      const message = error instanceof Error ? error.message : ""
+      if (message !== "NEXT_REDIRECT") {
+        setErrorMessage(message.replace("Error setting up the request: ", ""))
       }
     } finally {
       setSubmitting(false)

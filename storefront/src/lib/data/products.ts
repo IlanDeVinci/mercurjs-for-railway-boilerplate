@@ -1,4 +1,3 @@
-export default {}
 "use server"
 
 import { sdk } from "../config"
@@ -94,21 +93,26 @@ export const listProducts = async ({
 
       const nextPage = count > offset + limit ? pageParam + 1 : null
 
-      const response = products.filter((prod) => {
-        // @ts-ignore Property 'seller' exists but TypeScript doesn't recognize it
-        const reviews = prod.seller?.reviews.filter((item) => !!item) ?? []
-        return (
-          // @ts-ignore Property 'seller' exists but TypeScript doesn't recognize it
-          prod?.seller && {
-            ...prod,
-            seller: {
-              // @ts-ignore Property 'seller' exists but TypeScript doesn't recognize it
-              ...prod.seller,
-              reviews,
-            },
+      const response = products
+        .map((prod) => {
+          const product = prod as HttpTypes.StoreProduct & {
+            seller?: SellerProps
           }
-        )
-      })
+          const reviews = product.seller?.reviews?.filter(Boolean) ?? []
+
+          return product.seller
+            ? {
+                ...product,
+                seller: {
+                  ...product.seller,
+                  reviews,
+                },
+              }
+            : null
+        })
+        .filter(Boolean) as (HttpTypes.StoreProduct & {
+        seller?: SellerProps
+      })[]
 
       return {
         response: {

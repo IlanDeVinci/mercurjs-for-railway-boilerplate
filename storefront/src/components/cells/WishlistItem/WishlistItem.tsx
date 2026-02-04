@@ -7,7 +7,6 @@ import { convertToLocale } from "@/lib/helpers/money"
 import { Button } from "@/components/atoms"
 import clsx from "clsx"
 
-export default {}
 export const WishlistItem = ({
   product,
   wishlist,

@@ -1,7 +1,6 @@
 import { HomeProductsCarousel } from "@/components/organisms"
 import { Product } from "@/types/product"
 
-export default {}
 export const HomeProductSection = async ({
   heading,
   locale = process.env.NEXT_PUBLIC_DEFAULT_REGION || "pl",

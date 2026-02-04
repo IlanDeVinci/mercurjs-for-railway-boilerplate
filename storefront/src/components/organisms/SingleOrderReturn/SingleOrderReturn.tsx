@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Avatar, Badge, Card, Divider } from "@/components/atoms"
@@ -11,6 +10,8 @@ import { Chat } from "../Chat/Chat"
 import Image from "next/image"
 import { convertToLocale } from "@/lib/helpers/money"
 import { StepProgressBar } from "@/components/cells/StepProgressBar/StepProgressBar"
+import { HttpTypes } from "@medusajs/types"
+import { SellerProps } from "@/types/seller"
 
 const steps = ["pending", "processing", "sent"]
 
@@ -20,10 +21,19 @@ export const SingleOrderReturn = ({
   defaultOpen,
   returnReason,
 }: {
-  item: any
-  user: any
+  item: {
+    id: string
+    status: string
+    line_items: Array<{
+      line_item_id: string
+      reason_id?: string
+      created_at: string
+    }>
+    order: HttpTypes.StoreOrder & { seller: SellerProps }
+  }
+  user: HttpTypes.StoreCustomer | null
   defaultOpen: boolean
-  returnReason: any[]
+  returnReason: HttpTypes.StoreReturnReason[]
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen)
   const [height, setHeight] = useState(0)
@@ -38,14 +48,12 @@ export const SingleOrderReturn = ({
   }, [])
 
   const filteredItems = item.order.items
-    .filter((orderItem: any) =>
-      item.line_items.some(
-        (lineItem: any) => lineItem.line_item_id === orderItem.id
-      )
+    .filter((orderItem) =>
+      item.line_items.some((lineItem) => lineItem.line_item_id === orderItem.id)
     )
-    .map((orderItem: any) => {
+    .map((orderItem) => {
       const correspondingLineItem = item.line_items.find(
-        (lineItem: any) => lineItem.line_item_id === orderItem.id
+        (lineItem) => lineItem.line_item_id === orderItem.id
       )
       return {
         ...orderItem,
@@ -57,7 +65,7 @@ export const SingleOrderReturn = ({
 
   const currency_code = item.order.currency_code || "usd"
 
-  const total = filteredItems.reduce((acc: number, item: any) => {
+  const total = filteredItems.reduce((acc: number, item) => {
     return acc + item.unit_price
   }, 0)
 
@@ -124,7 +132,7 @@ export const SingleOrderReturn = ({
           <Divider />
           <div className="p-4 flex justify-between w-full">
             <div className="flex flex-col gap-4 w-full">
-              {filteredItems.map((item: any) => (
+              {filteredItems.map((item) => (
                 <div key={item.id} className="flex items-center gap-2">
                   <div className="flex items-center gap-4 w-1/2">
                     <div className="rounded-sm overflow-hidden border">

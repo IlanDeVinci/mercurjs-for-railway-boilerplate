@@ -1,7 +1,7 @@
 import Medusa from "@medusajs/js-sdk"
 
 // Defaults to standard port for Medusa server
-export default {}
+
 const MEDUSA_BACKEND_URL =
   process.env.MEDUSA_BACKEND_URL || "http://localhost:9000"
 
@@ -14,7 +14,7 @@ export const sdk = new Medusa({
 type FetchQueryOptions = Omit<RequestInit, "headers" | "body"> & {
   headers?: Record<string, string | null | { tags: string[] }>
   query?: Record<string, string | number>
-  body?: Record<string, any>
+  body?: Record<string, unknown>
 }
 
 export async function fetchQuery(

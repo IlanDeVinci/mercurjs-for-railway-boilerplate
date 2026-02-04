@@ -1,4 +1,3 @@
-export default {}
 export const navigation = [
   {
     label: "TO WRITE",

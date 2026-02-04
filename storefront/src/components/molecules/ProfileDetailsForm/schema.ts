@@ -1,6 +1,5 @@
 import { z } from "zod"
 
-export default {}
 export const profileDetailsSchema = z.object({
   firstName: z.string().nonempty("First name is required"),
   lastName: z.string().nonempty("Last name is required"),

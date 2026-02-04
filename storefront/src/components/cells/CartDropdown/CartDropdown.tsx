@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Badge, Button } from "@/components/atoms"

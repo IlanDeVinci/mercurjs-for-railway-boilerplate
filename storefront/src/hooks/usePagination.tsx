@@ -1,18 +1,15 @@
-import { useSearchParams } from 'next/navigation';
-import useUpdateSearchParams from './useUpdateSearchParams';
+import { useSearchParams } from "next/navigation"
+import useUpdateSearchParams from "./useUpdateSearchParams"
 
-export default {}
 export const usePagination = () => {
-  const searchParams = useSearchParams();
-  const updateSearchParams = useUpdateSearchParams();
+  const searchParams = useSearchParams()
+  const updateSearchParams = useUpdateSearchParams()
 
-  const currentPage = parseInt(
-    searchParams.get('page') || '1'
-  );
+  const currentPage = parseInt(searchParams.get("page") || "1")
 
   const setPage = (page: string) => {
-    updateSearchParams('page', page);
-  };
+    updateSearchParams("page", page)
+  }
 
-  return { currentPage, setPage };
-};
+  return { currentPage, setPage }
+}

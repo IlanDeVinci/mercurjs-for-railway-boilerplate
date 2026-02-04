@@ -1,7 +1,6 @@
 import { Carousel } from "@/components/cells"
 import { CategoryCard } from "@/components/organisms"
 
-export default {}
 export const categories: { id: number; name: string; handle: string }[] = [
   {
     id: 1,

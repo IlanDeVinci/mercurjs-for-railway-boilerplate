@@ -1,11 +1,11 @@
 import { CartItemsHeader, CartItemsProducts } from "@/components/cells"
 import { HttpTypes } from "@medusajs/types"
+import { SellerProps } from "@/types/seller"
 
-export default {}
 export const CartItems = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
   if (!cart) return null
 
-  const groupedItems: any = groupItemsBySeller(cart)
+  const groupedItems = groupItemsBySeller(cart)
 
   return Object.keys(groupedItems).map((key) => (
     <div key={key} className="mb-4">
@@ -19,11 +19,16 @@ export const CartItems = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
   ))
 }
 
-function groupItemsBySeller(cart: HttpTypes.StoreCart) {
-  const groupedBySeller: any = {}
+type GroupedBySeller = Record<
+  string,
+  { seller: SellerProps; items: HttpTypes.StoreCartLineItem[] }
+>
 
-  cart.items?.forEach((item: any) => {
-    const seller = item.product?.seller
+function groupItemsBySeller(cart: HttpTypes.StoreCart): GroupedBySeller {
+  const groupedBySeller: GroupedBySeller = {}
+
+  cart.items?.forEach((item) => {
+    const seller = item.product?.seller as SellerProps | undefined
     if (seller) {
       if (!groupedBySeller[seller.id]) {
         groupedBySeller[seller.id] = {
@@ -39,7 +44,7 @@ function groupItemsBySeller(cart: HttpTypes.StoreCart) {
             name: "Fleek",
             id: "fleek",
             photo: "/Logo.svg",
-            created_at: new Date(),
+            created_at: new Date().toISOString(),
           },
           items: [],
         }

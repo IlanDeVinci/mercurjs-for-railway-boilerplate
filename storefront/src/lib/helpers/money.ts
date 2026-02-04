@@ -1,6 +1,5 @@
 import { isEmpty } from "./isEmpty"
 
-export default {}
 type ConvertToLocaleParams = {
   amount: number
   currency_code: string

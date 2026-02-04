@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Button } from "@/components/atoms"
@@ -43,14 +42,18 @@ export const UpdateCartItemButton = ({
 
     debounceTimerRef.current = setTimeout(async () => {
       try {
-        const res = await updateLineItem({ lineId: lineItemId, quantity: newQuantity })
+        const res = await updateLineItem({
+          lineId: lineItemId,
+          quantity: newQuantity,
+        })
         if (!res.ok) {
           setPendingQuantity(quantity)
           return handleError(res.error?.message)
         }
-      } catch (error: any) {
+      } catch (error) {
         setPendingQuantity(quantity)
-        handleError(error.message.replace("Error setting up the request: ", ""))
+        const message = error instanceof Error ? error.message : "Unknown error"
+        handleError(message.replace("Error setting up the request: ", ""))
       } finally {
         setIsUpdating(false)
       }

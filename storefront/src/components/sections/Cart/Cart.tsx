@@ -3,9 +3,7 @@ import { CartEmpty, CartItems, CartSummary } from "@/components/organisms"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 import { retrieveCart } from "@/lib/data/cart"
 import CartPromotionCode from "../CartReview/CartPromotionCode"
-import { EmptyCart } from "@/components/organisms/CartItems/EmptyCart"
 
-export default {}
 export const Cart = async () => {
   const cart = await retrieveCart()
 

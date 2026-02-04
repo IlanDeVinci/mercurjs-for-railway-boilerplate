@@ -1,6 +1,5 @@
 import { ReadonlyURLSearchParams } from "next/navigation"
 
-export default {}
 function escapeMeiliString(value: string) {
   return value.replace(/\\/g, "\\\\").replace(/\"/g, '\\"')
 }

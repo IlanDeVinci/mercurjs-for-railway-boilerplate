@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { Heading, Text, useToggleState } from "@medusajs/ui"

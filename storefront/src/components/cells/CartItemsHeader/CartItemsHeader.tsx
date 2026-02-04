@@ -4,7 +4,6 @@ import { format } from "date-fns"
 import { SellerAvatar } from "../SellerAvatar/SellerAvatar"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 
-export default {}
 export const CartItemsHeader = ({
   seller,
 }: {

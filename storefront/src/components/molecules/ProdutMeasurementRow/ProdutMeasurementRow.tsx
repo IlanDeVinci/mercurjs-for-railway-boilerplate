@@ -1,17 +1,16 @@
-import { SingleProductMeasurement } from '@/types/product';
+import { SingleProductMeasurement } from "@/types/product"
 
-export default {}
 export const ProdutMeasurementRow = ({
   measurement,
 }: {
-  measurement: SingleProductMeasurement;
+  measurement: SingleProductMeasurement
 }) => {
-  const { label, inches, cm } = measurement;
+  const { label, inches, cm } = measurement
   return (
-    <div className='border rounded-sm grid grid-cols-3 text-center label-md'>
-      <div className='border-r py-3'>{label}</div>
-      <div className='border-r py-3'>{inches} in</div>
-      <div className='py-3'>{cm} cm</div>
+    <div className="border rounded-sm grid grid-cols-3 text-center label-md">
+      <div className="border-r py-3">{label}</div>
+      <div className="border-r py-3">{inches} in</div>
+      <div className="py-3">{cm} cm</div>
     </div>
-  );
-};
+  )
+}

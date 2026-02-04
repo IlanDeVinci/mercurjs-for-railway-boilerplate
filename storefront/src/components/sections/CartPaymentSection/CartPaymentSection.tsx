@@ -15,8 +15,9 @@ import PaymentContainer, {
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { Button } from "@/components/atoms"
+import { HttpTypes } from "@medusajs/types"
 
-type StoreCardPaymentMethod = any & {
+type StoreCardPaymentMethod = HttpTypes.StorePaymentProvider & {
   service_zone?: {
     fulfillment_set: {
       type: string
@@ -28,11 +29,11 @@ const CartPaymentSection = ({
   cart,
   availablePaymentMethods,
 }: {
-  cart: any
+  cart: HttpTypes.StoreCart
   availablePaymentMethods: StoreCardPaymentMethod[] | null
 }) => {
   const activeSession = cart.payment_collection?.payment_sessions?.find(
-    (paymentSession: any) => paymentSession.status === "pending"
+    (paymentSession) => paymentSession.status === "pending"
   )
 
   const [isLoading, setIsLoading] = useState(false)
@@ -106,8 +107,9 @@ const CartPaymentSection = ({
           }
         )
       }
-    } catch (err: any) {
-      setError(err.message)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Payment error"
+      setError(message)
     } finally {
       setIsLoading(false)
     }

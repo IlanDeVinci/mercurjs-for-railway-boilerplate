@@ -1,4 +1,3 @@
-export default {}
 "use server"
 import { revalidatePath } from "next/cache"
 import { fetchQuery } from "../config"
@@ -19,8 +18,8 @@ export type Review = {
 }
 
 export type Order = HttpTypes.StoreOrder & {
-  seller: { id: string; name: string; reviews?: any[] }
-  reviews: any[]
+  seller: { id: string; name: string; reviews?: Review[] }
+  reviews: Review[]
 }
 
 const getReviews = async () => {
@@ -37,7 +36,7 @@ const getReviews = async () => {
   return res
 }
 
-const createReview = async (review: any) => {
+const createReview = async (review: Record<string, unknown>) => {
   const headers = {
     ...(await getAuthHeaders()),
     "Content-Type": "application/json",

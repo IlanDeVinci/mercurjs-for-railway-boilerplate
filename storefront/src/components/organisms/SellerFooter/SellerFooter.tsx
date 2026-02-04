@@ -1,9 +1,6 @@
-export default {}
 "use client"
 import { Button, Divider } from "@/components/atoms"
 import { Modal, ReportSellerForm } from "@/components/molecules"
-import { DoneIcon } from "@/icons"
-import { SingleProductSeller } from "@/types/product"
 import { SellerProps } from "@/types/seller"
 import { format } from "date-fns"
 import { useState } from "react"

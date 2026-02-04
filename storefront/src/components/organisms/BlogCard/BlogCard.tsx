@@ -5,7 +5,6 @@ import { ArrowRightIcon } from "@/icons"
 import tailwindConfig from "../../../../tailwind.config"
 import { cn } from "@/lib/utils"
 
-export default {}
 interface BlogCardProps {
   post: BlogPost
   index: number

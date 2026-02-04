@@ -4,9 +4,16 @@ import { retrieveCustomer } from "@/lib/data/customer"
 import { OrderParcelItems } from "@/components/molecules/OrderParcelItems/OrderParcelItems"
 import { OrderParcelStatus } from "@/components/molecules/OrderParcelStatus/OrderParcelStatus"
 import { OrderParcelActions } from "@/components/molecules/OrderParcelActions/OrderParcelActions"
+import { HttpTypes } from "@medusajs/types"
+import { SellerProps } from "@/types/seller"
 
-export default {}
-export const OrderParcels = async ({ orders }: { orders: any[] }) => {
+type OrderWithSeller = HttpTypes.StoreOrder & { seller: SellerProps }
+
+export const OrderParcels = async ({
+  orders,
+}: {
+  orders: OrderWithSeller[]
+}) => {
   const user = await retrieveCustomer()
 
   return (

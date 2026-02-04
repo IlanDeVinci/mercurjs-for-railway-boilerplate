@@ -1,4 +1,3 @@
-export default {}
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -168,8 +167,9 @@ export function ChatBox({
             // ignore
           }
         })
-      } catch (e: any) {
-        if (!cancelled) setError(e?.message || "Chat failed")
+      } catch (e) {
+        const message = e instanceof Error ? e.message : "Chat failed"
+        if (!cancelled) setError(message)
       } finally {
         if (!cancelled) setLoading(false)
       }

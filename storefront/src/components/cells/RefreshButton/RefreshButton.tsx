@@ -1,4 +1,3 @@
-export default {}
 "use client"
 import { Button } from "@/components/atoms"
 import { cn } from "@/lib/utils"

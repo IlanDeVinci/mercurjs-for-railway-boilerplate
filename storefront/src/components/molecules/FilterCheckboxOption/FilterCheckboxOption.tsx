@@ -1,7 +1,6 @@
-import { Checkbox } from '@/components/atoms';
-import { cn } from '@/lib/utils';
+import { Checkbox } from "@/components/atoms"
+import { cn } from "@/lib/utils"
 
-export default {}
 export const FilterCheckboxOption = ({
   label,
   amount,
@@ -9,35 +8,31 @@ export const FilterCheckboxOption = ({
   onCheck = () => null,
   disabled = false,
 }: {
-  label: string;
-  amount?: number;
-  checked?: boolean;
-  onCheck?: (option: string) => void;
-  disabled?: boolean;
+  label: string
+  amount?: number
+  checked?: boolean
+  onCheck?: (option: string) => void
+  disabled?: boolean
 }) => {
   return (
     <label
       className={cn(
-        'flex gap-4 items-center cursor-pointer',
-        disabled && '!cursor-default'
+        "flex gap-4 items-center cursor-pointer",
+        disabled && "!cursor-default"
       )}
       onClick={() => (disabled ? null : onCheck(label))}
     >
       <Checkbox checked={checked} disabled={disabled} />
       <p
         className={cn(
-          'label-md !font-normal',
-          checked && '!font-semibold',
-          disabled && 'text-disabled'
+          "label-md !font-normal",
+          checked && "!font-semibold",
+          disabled && "text-disabled"
         )}
       >
-        {label}{' '}
-        {amount && (
-          <span className='label-sm !font-light'>
-            ({amount})
-          </span>
-        )}
+        {label}{" "}
+        {amount && <span className="label-sm !font-light">({amount})</span>}
       </p>
     </label>
-  );
-};
+  )
+}

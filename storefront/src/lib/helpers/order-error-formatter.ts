@@ -1,12 +1,20 @@
-export default {}
-export const orderErrorFormatter = (error: any) => {
-  if (error.message === "NEXT_REDIRECT") {
+type ErrorLike = {
+  message?: unknown
+}
+
+export const orderErrorFormatter = (error: unknown) => {
+  const message = (error as ErrorLike)?.message
+
+  if (message === "NEXT_REDIRECT") {
     return null
   }
 
-  if (error.message.includes("Not enough stock available")) {
+  if (
+    typeof message === "string" &&
+    message.includes("Not enough stock available")
+  ) {
     return "Not enough stock available"
   }
 
-  return error.message
+  return typeof message === "string" ? message : "An unknown error occurred"
 }

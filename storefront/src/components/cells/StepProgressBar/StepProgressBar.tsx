@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils"
 
-export default {}
 export const StepProgressBar = ({
   steps,
   currentStep,

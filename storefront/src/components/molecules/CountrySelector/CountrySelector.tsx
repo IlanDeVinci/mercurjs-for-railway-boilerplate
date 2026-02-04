@@ -29,10 +29,7 @@ type CountrySelectProps = {
 
 const CountrySelect = ({ regions }: CountrySelectProps) => {
   const [mounted, setMounted] = useState(false)
-  const [current, setCurrent] = useState<
-    | { country: string | undefined; region: string; label: string | undefined }
-    | undefined
-  >(undefined)
+  const [current, setCurrent] = useState<CountryOption | undefined>(undefined)
 
   const { locale: countryCode } = useParams()
   const router = useRouter()
@@ -43,17 +40,24 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
     []
   )
 
-  const options = useMemo(() => {
-    return regions
-      ?.map((r) => {
-        return r.countries?.map((c) => ({
-          country: c.iso_2,
-          region: r.id,
-          label: c.display_name,
-        }))
-      })
-      .flat()
-      .sort((a, b) => collator.compare(a?.label ?? "", b?.label ?? ""))
+  const options = useMemo<CountryOption[]>(() => {
+    return (regions ?? [])
+      .flatMap((r) =>
+        (r.countries ?? [])
+          .filter(
+            (c): c is typeof c & { iso_2: string; display_name: string } =>
+              typeof c.iso_2 === "string" &&
+              c.iso_2.length > 0 &&
+              typeof c.display_name === "string" &&
+              c.display_name.length > 0
+          )
+          .map((c) => ({
+            country: c.iso_2,
+            region: r.id,
+            label: c.display_name,
+          }))
+      )
+      .sort((a, b) => collator.compare(a.label, b.label))
   }, [regions, collator])
 
   useEffect(() => {
@@ -85,11 +89,14 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
       // Navigate to new region
       router.push(result.newPath)
       router.refresh()
-    } catch (error: any) {
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Failed to update region. Please try again."
       toast.error({
         title: "Error switching region",
-        description:
-          error?.message || "Failed to update region. Please try again.",
+        description: message,
       })
     }
   }
@@ -130,17 +137,16 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
             <div className="txt-compact-small flex items-start mx-auto">
               {current && (
                 <span className="txt-compact-small flex items-center gap-x-2">
-                  {/* @ts-ignore */}
                   <ReactCountryFlag
-                    alt={`${current.country?.toUpperCase()} flag`}
+                    alt={`${current.country.toUpperCase()} flag`}
                     svg
                     style={{
                       width: "16px",
                       height: "16px",
                     }}
-                    countryCode={current.country ?? ""}
+                    countryCode={current.country}
                   />
-                  {current.country?.toUpperCase()}
+                  {current.country.toUpperCase()}
                 </span>
               )}
             </div>
@@ -153,7 +159,7 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
               leaveTo="opacity-0"
             >
               <ListboxOptions className="no-scrollbar absolute z-20 overflow-auto text-small-regular bg-white border rounded-lg border-top-0 max-h-60 focus:outline-none sm:text-sm">
-                {options?.map((o, index) => {
+                {options.map((o, index) => {
                   return (
                     <ListboxOption
                       key={index}
@@ -161,16 +167,15 @@ const CountrySelect = ({ regions }: CountrySelectProps) => {
                       className="cursor-pointer select-none relative w-16 hover:bg-gray-50 py-2 border-b"
                     >
                       <span className="flex items-center gap-x-2 pl-2">
-                        {/* @ts-ignore */}
                         <ReactCountryFlag
                           svg
                           style={{
                             width: "16px",
                             height: "16px",
                           }}
-                          countryCode={o?.country ?? ""}
+                          countryCode={o.country}
                         />{" "}
-                        {o?.country?.toUpperCase()}
+                        {o.country.toUpperCase()}
                       </span>
                     </ListboxOption>
                   )

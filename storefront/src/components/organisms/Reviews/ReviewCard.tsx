@@ -1,10 +1,9 @@
-import { Button, Card } from "@/components/atoms"
+import { Card } from "@/components/atoms"
 import { StarIcon } from "@/icons"
 import { Review } from "@/lib/data/reviews"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
-export default {}
 export const ReviewCard = ({ review }: { review: Review }) => {
   return (
     <Card

@@ -1,7 +1,6 @@
 import { TabsTrigger } from "@/components/atoms"
 import LocalizedClientLink from "@/components/molecules/LocalizedLink/LocalizedLink"
 
-export default {}
 export const TabsList = ({
   list,
   activeTab,

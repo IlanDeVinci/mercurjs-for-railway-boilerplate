@@ -10,20 +10,32 @@ type WishlistProduct = {
 };
 
 type WishlistEntity = {
-  products?: WishlistProduct[];
+  products?: (WishlistProduct | null)[] | null;
 };
 
 export async function GET(req: MedusaRequest, res: MedusaResponse) {
   const query = req.scope.resolve(ContainerRegistrationKeys.QUERY);
-  const customerId = req.auth_context?.actor_id;
+  const customerId = (
+    req as MedusaRequest & {
+      auth_context?: { actor_id?: string };
+    }
+  ).auth_context?.actor_id;
 
   if (!customerId) {
     return res.json({ products: [], count: 0, offset: 0, limit: 0 });
   }
 
+  const wishlistQuery = query as {
+    graph: (input: {
+      entity: "wishlist";
+      fields: string[];
+      filters: { customer_id: string };
+    }) => Promise<{ data?: WishlistEntity[] }>;
+  };
+
   let wishlist: WishlistEntity | undefined;
   try {
-    const result = await query.graph({
+    const result = await wishlistQuery.graph({
       entity: "wishlist",
       fields: ["products.id"],
       filters: {
@@ -35,9 +47,9 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
     wishlist = undefined;
   }
 
-  const productIds = (wishlist?.products || [])
-    .map((product) => product.id)
-    .filter(Boolean);
+  const productIds: string[] = (wishlist?.products || [])
+    .map((product) => product?.id)
+    .filter((id): id is string => Boolean(id));
 
   if (productIds.length === 0) {
     return res.json({ products: [], count: 0, offset: 0, limit: 0 });

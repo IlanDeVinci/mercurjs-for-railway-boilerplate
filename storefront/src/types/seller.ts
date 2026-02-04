@@ -1,6 +1,5 @@
 import { Product } from "./product"
 
-export default {}
 type SellerAddress = {
   address_line?: string
   city?: string
@@ -16,7 +15,7 @@ export type SellerProps = SellerAddress & {
   photo: string
   tax_id: string
   created_at: string
-  reviews?: any[]
+  reviews?: Array<Record<string, unknown>>
   products?: Product[]
   email?: string
   store_status?: "ACTIVE" | "SUSPENDED" | "INACTIVE"
