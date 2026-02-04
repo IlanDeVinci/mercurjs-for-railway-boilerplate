@@ -16,12 +16,31 @@ export default defineConfig(({ mode }) => {
   const B2B_PANEL = env.VITE_MEDUSA_B2B_PANEL || "false";
   const PORT = parseInt(env.PORT || env.VITE_PORT || "5173", 10);
   const PUBLIC_BASE_URL = env.VITE_PUBLIC_BASE_URL || "";
+  const RAW_ALLOWED_HOSTS = env.VITE_ALLOWED_HOSTS || "";
 
   /**
    * Add this to your .env file to specify the project to load admin extensions from.
    */
   const MEDUSA_PROJECT = env.VITE_MEDUSA_PROJECT || null;
   const sources = MEDUSA_PROJECT ? [MEDUSA_PROJECT] : [];
+
+  const parsedAllowedHosts = RAW_ALLOWED_HOSTS.split(",")
+    .map((host) => host.trim())
+    .filter(Boolean)
+    .map(
+      (host) =>
+        host.replace("https://", "").replace("http://", "").split("/")[0],
+    );
+
+  const baseHost = PUBLIC_BASE_URL
+    ? PUBLIC_BASE_URL.replace("https://", "")
+        .replace("http://", "")
+        .split("/")[0]
+    : "";
+
+  const allowedHosts = Array.from(
+    new Set([baseHost, ...parsedAllowedHosts].filter(Boolean)),
+  );
 
   return {
     plugins: [
@@ -55,7 +74,7 @@ export default defineConfig(({ mode }) => {
       host: true,
       port: PORT,
       open: false,
-      allowedHosts: PUBLIC_BASE_URL ? [PUBLIC_BASE_URL.replace('https://', '').replace('http://', '').split('/')[0]] : [],
+      allowedHosts: allowedHosts.length ? allowedHosts : true,
     },
   };
 });
