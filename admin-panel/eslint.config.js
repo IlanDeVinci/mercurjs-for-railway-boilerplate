@@ -16,4 +16,11 @@ module.exports = [
     ...config,
     files: srcFiles,
   })),
+  {
+    files: ["tsup.config.cjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+    },
+  },
 ];
