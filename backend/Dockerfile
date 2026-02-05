@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 9000
 
-CMD ["sh", "-c", "HOST=0.0.0.0 PORT=${PORT:-9000} pnpm run dev"]
+CMD ["sh", "-c", "HOST=0.0.0.0 PORT=${PORT:-9000} pnpm run start"]
