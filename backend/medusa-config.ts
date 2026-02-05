@@ -46,7 +46,7 @@ module.exports = defineConfig({
     },
   },
   admin: {
-    disable: false,
+    disable: process.env.DISABLE_ADMIN ? "true" : "false",
   },
   plugins: [
     {
