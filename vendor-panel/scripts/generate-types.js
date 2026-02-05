@@ -7,8 +7,8 @@ async function generateTypes() {
   const fs = require("fs")
   const path = require("path")
 
-  const distDir = path.resolve(__dirname, "../dist")
-  const filePath = path.join(distDir, "index.d.ts")
+  const outDir = path.resolve(__dirname, "../lib")
+  const filePath = path.join(outDir, "index.d.ts")
 
   const fileContent = `
 import * as react_jsx_runtime from "react/jsx-runtime"
@@ -19,8 +19,8 @@ export default App
 `
 
   // Ensure the dist directory exists
-  if (!fs.existsSync(distDir)) {
-    fs.mkdirSync(distDir)
+  if (!fs.existsSync(outDir)) {
+    fs.mkdirSync(outDir)
   }
 
   // Write the content to the index.d.ts file

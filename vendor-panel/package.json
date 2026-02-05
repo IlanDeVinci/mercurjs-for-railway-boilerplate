@@ -17,18 +17,18 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
   },
-  "main": "dist/app.js",
-  "module": "dist/app.mjs",
-  "types": "dist/index.d.ts",
+  "main": "lib/app.js",
+  "module": "lib/app.mjs",
+  "types": "lib/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/app.mjs",
-      "require": "./dist/app.js",
-      "types": "./dist/index.d.ts"
+      "types": "./lib/index.d.ts",
+      "import": "./lib/app.mjs",
+      "require": "./lib/app.js"
     },
     "./css": {
-      "import": "./dist/app.css",
-      "require": "./dist/app.css"
+      "import": "./lib/app.css",
+      "require": "./lib/app.css"
     },
     "./root": "./",
     "./package.json": "./package.json"
@@ -41,7 +41,8 @@
     "package.json",
     "src",
     "index.html",
-    "dist"
+    "dist",
+    "lib"
   ],
   "dependencies": {
     "@ariakit/react": "^0.4.15",
