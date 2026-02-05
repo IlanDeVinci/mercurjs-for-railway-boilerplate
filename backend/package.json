@@ -15,7 +15,7 @@
   "scripts": {
     "build": "medusa build",
     "ib": "init-backend",
-    "init-meili": "node .medusa/server/src/scripts/init-meili.js",
+    "init-meili": "medusa exec ./src/scripts/init-meili.ts",
     "reindex-meili": "medusa exec ./src/scripts/reindex-meili.ts",
     "start": "init-backend && pnpm exec medusa db:migrate && if [ \"${SEED_DB:-false}\" = \"true\" ]; then pnpm seed; fi && pnpm run init-meili && cd .medusa/server && medusa start",
     "dev": "medusa develop",
