@@ -30,6 +30,20 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   const countries = ["us", "ca", "gb", "de", "fr", "es", "it"];
 
+  const { data: existingRegions } = await query.graph({
+    entity: "region",
+    fields: ["id"],
+    filters: {},
+    pagination: {
+      take: 1,
+    },
+  });
+
+  if (existingRegions.length > 0) {
+    logger.info("Database already seeded (regions exist). Skipping seed.");
+    return;
+  }
+
   logger.info("Seeding store data...");
   const [store] = await storeModuleService.listStores();
   let defaultSalesChannel = await salesChannelModuleService.listSalesChannels({
@@ -38,7 +52,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   if (!defaultSalesChannel.length) {
     const { result: salesChannelResult } = await createSalesChannelsWorkflow(
-      container
+      container,
     ).run({
       input: {
         salesChannelsData: [
@@ -93,14 +107,14 @@ export default async function seedDemoData({ container }: ExecArgs) {
   await createTaxRegionsWorkflow(container).run({
     input: countries.map((country_code) => ({
       country_code,
-      provider_id: "tp_system"
+      provider_id: "tp_system",
     })),
   });
   logger.info("Finished seeding tax regions.");
 
   logger.info("Seeding stock location data...");
   const { result: stockLocationResult } = await createStockLocationsWorkflow(
-    container
+    container,
   ).run({
     input: {
       locations: [
@@ -128,22 +142,22 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   logger.info("Seeding fulfillment data...");
   const shippingProfiles = await fulfillmentModuleService.listShippingProfiles({
-    type: "default"
-  })
-  let shippingProfile = shippingProfiles.length ? shippingProfiles[0] : null
+    type: "default",
+  });
+  let shippingProfile = shippingProfiles.length ? shippingProfiles[0] : null;
 
   if (!shippingProfile) {
     const { result: shippingProfileResult } =
-    await createShippingProfilesWorkflow(container).run({
-      input: {
-        data: [
-          {
-            name: "Default Shipping Profile",
-            type: "default",
-          },
-        ],
-      },
-    });
+      await createShippingProfilesWorkflow(container).run({
+        input: {
+          data: [
+            {
+              name: "Default Shipping Profile",
+              type: "default",
+            },
+          ],
+        },
+      });
     shippingProfile = shippingProfileResult[0];
   }
 
@@ -153,7 +167,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
     service_zones: [
       {
         name: "Global",
-        geo_zones: countries.map(country_code => ({
+        geo_zones: countries.map((country_code) => ({
           country_code,
           type: "country" as const,
         })),
@@ -193,10 +207,10 @@ export default async function seedDemoData({ container }: ExecArgs) {
             currency_code: "eur",
             amount: 10,
           },
-          ...regions.map(region => ({
+          ...regions.map((region) => ({
             region_id: region.id,
             amount: 10,
-          }))
+          })),
         ],
         rules: [
           {
@@ -231,10 +245,10 @@ export default async function seedDemoData({ container }: ExecArgs) {
             currency_code: "eur",
             amount: 20,
           },
-          ...regions.map(region => ({
+          ...regions.map((region) => ({
             region_id: region.id,
             amount: 20,
-          }))
+          })),
         ],
         rules: [
           {
@@ -263,7 +277,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   logger.info("Seeding publishable API key data...");
   const { result: publishableApiKeyResult } = await createApiKeysWorkflow(
-    container
+    container,
   ).run({
     input: {
       api_keys: [
@@ -287,7 +301,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   logger.info("Seeding product categories...");
   const { result: categoryResult } = await createProductCategoriesWorkflow(
-    container
+    container,
   ).run({
     input: {
       product_categories: [
